@@ -1,4 +1,4 @@
-# Doppleganger
+# Doppelganger
 
 Video chat from the fuuuture, with WebRTC.
 
