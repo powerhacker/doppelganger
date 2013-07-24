@@ -16,3 +16,6 @@ central server. This allows browsers to share raw data as well as
 audio/video.
 
 Check out more on WebRTC at [HTML Rocks](http://www.html5rocks.com/en/tutorials/webrtc/basics/).
+
+There's also a great overview on the
+[Mozilla Blogs about WebRTC and associated technologies](https://hacks.mozilla.org/2013/07/webrtc-and-the-ocean-of-acronyms/)
