@@ -8,6 +8,8 @@ npm install -d
 npm start
 ```
 
+![](http://f.cl.ly/items/1w1b2h1M0P2o3i0y1o3n/Screen%20Shot%202013-07-24%20at%209.00.50%20AM.png)
+
 ## What is WebRTC?
 
 WebRTC is a peer to peer standard proposal from Google allowing
