@@ -15,3 +15,8 @@ utility.registerTask('echo', function(value) {
 	localVideo.querySelector(".video-box-caption").innerHTML = value;
 	connection.send("chat", { name: this.hostname, message: value });
 });
+
+$("body").on('click', '.video-box-wrap', function() {
+	$(".video-box-wrap").removeClass('has-focus').filter(this).addClass('has-focus');
+	connection.createSpeedDial();
+});

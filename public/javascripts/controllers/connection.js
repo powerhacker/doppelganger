@@ -50,7 +50,7 @@ var ConnectionController = Marionette.Controller.extend({
 	},
 
 	createSpeedDial: function() {
-		var videos = $(remoteVideos).children();
+		var videos = $(".video-box-wrap").not(".has-focus");
 		var size = 320;
 
 		videos.each(function(index, video) {
@@ -67,6 +67,8 @@ var ConnectionController = Marionette.Controller.extend({
 
 	removeVideo: function(video) {
 		$(video.parentElement).remove();
+		var $videos = $(".video-box-wrap");
+		if ($videos.filter(".has-focus").length === 0) $videos.first().addClass('has-focus');
 		this.createSpeedDial();
 	},
 
