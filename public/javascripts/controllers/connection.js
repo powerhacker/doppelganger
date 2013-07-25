@@ -2,77 +2,77 @@
  * @name ConnectionController
  * @desc A simple bucket to handle video connection stuff.
  *       Uses https://github.com/HenrikJoreteg/SimpleWebRTC
+ *
+ * @extends Marionette.Controller
  */
 
-var ConnectionController = Marionette.Controller.extend({
+define(['V/video'], function(VideoView) {
 
-	initialize: function() {
+	var ConnectionController = Marionette.Controller.extend({
 
-		this.driver = new SimpleWebRTC({
-			localVideoEl: 'localVideo',
-			remoteVideosEl: 'remoteVideos',
-			autoRequestMedia: true,
-			autoRemoveVideos: false
-		});
+		initialize: function() {
 
-		this.driver.on('readyToCall', this.boot.bind(this));
-		this.driver.on('videoAdded', this.addVideo.bind(this));
-		this.driver.on('videoRemoved', this.removeVideo.bind(this));
+			this.driver = new SimpleWebRTC({
+				localVideoEl: 'localVideo',
+				remoteVideosEl: 'remoteVideos',
+				autoRequestMedia: true,
+				autoRemoveVideos: false
+			});
 
-		this.driver.connection.on('message', function(data) {
-			this.trigger("message", data);
-			this.trigger("message:" + data.type, data);
-		}.bind(this));
-	},
+			this.driver.on('readyToCall', this.boot.bind(this));
+			this.driver.on('videoAdded', this.addVideo.bind(this));
+			this.driver.on('videoRemoved', this.removeVideo.bind(this));
 
-	boot: function() {
-		this.driver.joinRoom(window.location.pathname.slice(1));
-	},
+			this.driver.connection.on('message', function(data) {
+				this.trigger("message", data);
+				this.trigger("message:" + data.type, data);
+			}.bind(this));
 
-	addVideo: function(video) {
-		// Wrap the video in some container markup required to add other widgets
-		this.applyVideoWrap(video);
-		this.createSpeedDial();
-	},
+		},
 
-	applyVideoWrap: function(el, id) {
-		var container = $("<div>", { class: "video-box-wrap"});
-		var caption = $("<p>", { class: 'video-box-caption' });
-		var parent = $(el.parentElement);
+		boot: function() {
+			this.driver.joinRoom(window.location.pathname.slice(1));
+		},
 
-		parent.append(container);
-		container.append(el);
-		container.append(caption);
+		addVideo: function(video) {
+			var view = new VideoView({ el: video }).render()
 
-		el.play();
+			remoteVideos.appendChild(view.el);
 
-		return el;
-	},
+			view.play();
 
-	createSpeedDial: function() {
-		var videos = $(".video-box-wrap").not(".has-focus");
-		var size = 320;
+			// Wrap the video in some container markup required to add other widgets
+			this.createSpeedDial();
+		},
 
-		videos.each(function(index, video) {
-			var percent = index / videos.length;
-			var radians = (Math.PI / 180) * (percent * 360);
-			var x = Math.sin(radians) * size | 0;
-			var y = Math.cos(radians) * size | 0;
+		createSpeedDial: function() {
+			var videos = $(".video-box-wrap").not(".has-focus");
+			var size = 320;
 
-			setTimeout(function() {
-				$(video).css("transform", "translate(" + x + "px," + y + "px) translateZ(0)");
-			}, 200 * index);
-		});
-	},
+			videos.each(function(index, video) {
+				var percent = index / videos.length;
+				var radians = (Math.PI / 180) * (percent * 360);
+				var x = Math.sin(radians) * size | 0;
+				var y = Math.cos(radians) * size | 0;
 
-	removeVideo: function(video) {
-		$(video.parentElement).remove();
-		var $videos = $(".video-box-wrap");
-		if ($videos.filter(".has-focus").length === 0) $videos.first().addClass('has-focus');
-		this.createSpeedDial();
-	},
+				setTimeout(function() {
+					$(video).css("transform", "translate(" + x + "px," + y + "px) translateZ(0) rotateZ(360deg)");
+				}, 200 * index);
+			});
+		},
 
-	send: function(type, data) {
-		this.driver.webrtc.sendToAll(type, data);
-	}
+		removeVideo: function(video) {
+			$(video).trigger('video:exit')
+			var $videos = $(".video-box-wrap");
+			if ($videos.filter(".has-focus").length === 0) $videos.first().addClass('has-focus');
+			this.createSpeedDial();
+		},
+
+		send: function(type, data) {
+			this.driver.webrtc.sendToAll(type, data);
+		}
+	});
+
+	return ConnectionController;
+
 });
