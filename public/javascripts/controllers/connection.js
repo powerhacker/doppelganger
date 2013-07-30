@@ -45,7 +45,7 @@ define(['V/video'], function(VideoView) {
 			this.createSpeedDial();
 		},
 
-		createSpeedDial: function() {
+		makeRotaryDial: function(videos) {
 			var videos = $(".video-box-wrap").not(".has-focus");
 			var size = 320;
 
@@ -59,6 +59,10 @@ define(['V/video'], function(VideoView) {
 					$(video).css("transform", "translate(" + x + "px," + y + "px) translateZ(0) rotateZ(360deg)");
 				}, 200 * index);
 			});
+		},
+
+		createSpeedDial: function() {
+			this.makeRotaryDial();
 		},
 
 		removeVideo: function(video) {

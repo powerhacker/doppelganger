@@ -43,6 +43,13 @@ require(['C/connection', 'V/utility'], function(ConnectionController, UtilityVie
 		connection.send("chat", { name: this.hostname, message: value });
 	});
 
+	utility.registerTask('mode', function(value) {
+		var acceptable = ['fullscreen', 'default']
+		var classes = acceptable.map(function(c) { return 'is-' + c });
+		$("body").removeClass('.' + classes.join('.'));
+		$("body").addClass(	'is-' + value);
+	});
+
 	$("body").on('click', '.video-box-wrap', function() {
 		$(".video-box-wrap").removeClass('has-focus').filter(this).addClass('has-focus');
 		connection.createSpeedDial();

@@ -51,6 +51,7 @@ body {
 
 .video-box-wrap video {
   box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 6px 7px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
   left: -35px;
   min-height: 150px;
   max-width: 200px;
@@ -91,6 +92,39 @@ body {
   z-index: 5;
 }
 
+.video-box-wrap:hover:after {
+  border-color: gold;
+}
+
+/**
+ * @name isFullscreen
+ */
+
+.is-fullscreen .video-box-wrap.has-focus {
+  border: 0px none;
+  border-radius: 0;
+  height: 100%;
+  left: 0px;
+  margin: 0px;
+  top: 0px;
+  z-index: 0;
+  -webkit-mask: none;
+  width: 100%;
+}
+
+.is-fullscreen .video-box-wrap.has-focus:after {
+  display: none;
+}
+
+.is-fullscreen .video-box-wrap.has-focus video {
+  height: auto;
+  left: 0px;
+  max-width: none;
+  max-height: none;
+  top: 0px;
+  width: 100%;
+  z-index: 0;
+}
 
 /**
  * @name VideoBoxCaption

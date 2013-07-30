@@ -52,6 +52,13 @@ define(function() {
 
 		},
 
+		flagError: function() {
+			el.classList.add("error");
+			setTimeout(function() {
+				el.classList.remove("error");
+			}, 200);
+		},
+
 		handleSubmit: function(e) {
 			e.preventDefault();
 
@@ -69,10 +76,7 @@ define(function() {
 			if (action in actions) {
 				actions[action](value);
 			} else {
-				el.classList.add("error");
-				setTimeout(function() {
-					el.classList.remove("error");
-				}, 200);
+				this.flagError();
 			}
 
 			command.value = action + " ";
