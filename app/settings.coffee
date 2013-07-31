@@ -1,6 +1,6 @@
 #
 # Application Settings
-# 
+#
 
 express = require 'express'
 handlebars = require 'express3-handlebars'
@@ -10,4 +10,4 @@ module.exports = (app) ->
         app.use express.static './public'
         app.engine 'handlebars', handlebars defaultLayout: 'layout'
         app.set 'view engine', 'handlebars'
-        app.set 'port', 3002
+        app.set 'port', process.env.PORT or 3002
