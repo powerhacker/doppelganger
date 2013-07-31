@@ -19,6 +19,13 @@ define(function() {
 
 			cd: function(value) {
 				window.location.pathname = value;
+			},
+
+			mode: function(value) {
+				var acceptable = ['fullscreen', 'default']
+				var classes = acceptable.map(function(c) { return 'is-' + c });
+				$("body").removeClass(classes.join(' '));
+				$("body").addClass(	'is-' + value);
 			}
 		},
 

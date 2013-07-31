@@ -126,6 +126,13 @@ body {
   z-index: 0;
 }
 
+.is-fullscreen .video-box-caption {
+  bottom: 17px;
+  font-size: 18px;
+  padding: 10px 0px;
+}
+
+
 /**
  * @name VideoBoxCaption
  * @desc Used to display messages sent back and forth between clients
