@@ -45,23 +45,28 @@ define(['V/video'], function(VideoView) {
 			this.createSpeedDial();
 		},
 
-		makeRotaryDial: function(videos) {
+		makeRotaryDial: function(offset) {
 			var videos = $(".video-box-wrap").not(".has-focus");
 			var size = 320;
+			var rotation = 90 + (offset || 0);
 
 			videos.each(function(index, video) {
 				var percent = index / videos.length;
-				var radians = (Math.PI / 180) * (percent * 360);
+				var radians = (Math.PI / 180) * ((percent * 360) + rotation)
 				var x = Math.sin(radians) * size | 0;
 				var y = Math.cos(radians) * size | 0;
 
 				setTimeout(function() {
-					$(video).css("transform", "translate(" + x + "px," + y + "px) translateZ(0) rotateZ(360deg)");
+					$(video).css("transform", [
+						"translate(" + x + "px," + y + "px)",
+						"translateZ(0) rotateZ(360deg)"
+					].join(" "));
 				}, 200 * index);
 			});
 		},
 
 		createSpeedDial: function() {
+			// TODO: possibly add more styles of visualization
 			this.makeRotaryDial();
 		},
 
