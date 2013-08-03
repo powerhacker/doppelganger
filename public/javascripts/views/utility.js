@@ -60,33 +60,31 @@ define(function() {
 		},
 
 		flagError: function() {
-			el.classList.add("error");
+			var $el = this.$el;
+			$el.addClass('error');
 			setTimeout(function() {
-				el.classList.remove("error");
+				$el.removeClass("error");
 			}, 200);
 		},
 
 		handleSubmit: function(e) {
 			e.preventDefault();
-
 			var command = this.el.elements.command;
 
-			this.commandList.push(command.value);
 			this.current = this.commandList.length;
 
-			var el = this.el;
-			var actions = this.actions;
 			var statement = command.value.split(" ");
 			var action = statement[0];
 			var value = statement.slice(1).join(" ");
 
-			if (action in actions) {
-				actions[action](value);
+			if (action in this.actions) {
+				this.actions[action](value);
+				this.commandList.push(command.value);
+				command.value = action + " ";
 			} else {
-				this.flagError();
+				this.actions.echo(command.value)
+				command.value = '';
 			}
-
-			command.value = action + " ";
 		}
 
 	});
