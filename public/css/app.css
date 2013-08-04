@@ -33,21 +33,50 @@ body {
  */
 
 .video-box-wrap {
-  background: #444 url("/images/loader.gif") 50% 50% no-repeat;
-  border-radius: 200px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 6px 7px rgba(0, 0, 0, 0.75);
   cursor: pointer;
   height: 140px;
   left: 50%;
   margin: -75px 0 0 -75px;
-  overflow: hidden;
   position: absolute;
   transition: 0.5s transform;
   -webkit-transition: 0.5s -webkit-transform;
   top: 50%;
   width: 140px;
   z-index: 4;
+}
+
+.video-box-mask {
+  background: #444 url("/images/loader.gif") 50% 50% no-repeat;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 6px 7px rgba(0, 0, 0, 0.75);
+  border-radius: 200px;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
   -webkit-mask-image: -webkit-gradient(radial, 50% 50%, 49, 50% 50%, 50, from(black), to(white));
+  width: 100%;
+}
+
+.video-box-mask:after {
+  border: 4px solid #AAA;
+  border-radius: 200px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  width: 100%;
+  z-index: 5;
+}
+
+.video-box-mask:hover:after {
+  border-color: gold;
 }
 
 .video-box-wrap video {
@@ -74,27 +103,6 @@ body {
   left: -92px;
   min-height: 340px;
   max-width: 460px;
-}
-
-.video-box-wrap:after {
-  border: 4px solid #AAA;
-  border-radius: 200px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-  content: "";
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  width: 100%;
-  z-index: 5;
-}
-
-.video-box-wrap:hover:after {
-  border-color: gold;
 }
 
 /**
@@ -139,21 +147,60 @@ body {
  * @desc Used to display messages sent back and forth between clients
  */
 
+@keyframes popout {
+  0%   { transform: scale(0.9); }
+  70%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@-webkit-keyframes popout {
+  0%   { -webkit-transform: scale(0.9); }
+  70%  { -webkit-transform: scale(1.05); }
+  100% { -webkit-transform: scale(1); }
+}
+
 .video-box-caption {
-  background: rgba(30, 30, 30, 0.7);
-  box-shadow: inset 0 -1px #191919, inset 0 1px #191919;
-  bottom: 0;
-  color: #eee;
-  font-size: 13px;
-  left: 0;
-  line-height: 2em;
+  animation: 0.1s popout;
+  -webkit-animation: 0.1s popout;
+  background: #d9d9d9;
+  border-radius: 8px;
+  box-shadow:
+      inset 0 1px 0 #fff,
+	  inset 0 0 1px #999,
+	  0px 1px 3px rgba(0, 0, 0, 0.4);
+  border: 1px solid #aaa;
+  color: #222;
+  display: none;
+  font-size: 14px;
+  left: 50%;
+  line-height: 1.5em;
+  margin-left: -45%;
+  max-height: 300px;
+  max-width: 300px;
+  overflow: hidden;
+  padding: 0.75em;
   position: absolute;
-  text-align: center;
-  text-shadow: 0 1px 1px #000;
+  text-align: left;
+  text-shadow: 0 1px 0 #fff;
+  top: 85%;
   width: 100%;
   z-index: 6;
 }
 
+.video-box-caption:after {
+  border: 10px solid #D3D3D3;
+  border-color: transparent transparent  #D3D3D3 transparent;
+  content: "";
+  left: 50%;
+  margin-left: -10px;
+  position: absolute;
+  top: -19px;
+}
+
+.video-box-caption.is-visible {
+  animation: 0.8s popout;
+  display: block;
+}
 
 /**
  * @name UtilityBar

@@ -13,10 +13,12 @@ define(['V/video'], function(VideoView) {
 		initialize: function() {
 
 			this.driver = new SimpleWebRTC({
-				localVideoEl: 'localVideo',
-				remoteVideosEl: 'remoteVideos',
 				autoRequestMedia: true,
-				autoRemoveVideos: false
+				autoRemoveVideos: false,
+				localVideoEl: 'localVideo',
+				log: true,
+				remoteVideosEl: 'remoteVideos',
+				peerVolumeWhenSpeaking: .5
 			});
 
 			this.driver.on('readyToCall', this.boot.bind(this));
@@ -27,21 +29,22 @@ define(['V/video'], function(VideoView) {
 				this.trigger("message", data);
 				this.trigger("message:" + data.type, data);
 			}.bind(this));
-
 		},
 
 		boot: function() {
+			var view = new VideoView({
+				el: localVideo.querySelector('video')
+			}).render();
+			view.$el.addClass('has-focus');
+			$(localVideo).append(view.el).show();
+			view.play();
 			this.driver.joinRoom(window.location.pathname.slice(1));
 		},
 
 		addVideo: function(video) {
 			var view = new VideoView({ el: video }).render()
-
 			remoteVideos.appendChild(view.el);
-
 			view.play();
-
-			// Wrap the video in some container markup required to add other widgets
 			this.createSpeedDial();
 		},
 
@@ -66,7 +69,6 @@ define(['V/video'], function(VideoView) {
 		},
 
 		createSpeedDial: function() {
-			// TODO: possibly add more styles of visualization
 			this.makeRotaryDial();
 		},
 

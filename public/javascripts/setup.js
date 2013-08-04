@@ -28,18 +28,17 @@ requirejs.config({
 });
 
 require(['C/connection', 'V/utility'], function(ConnectionController, UtilityView) {
-
 	var connection = new ConnectionController();
 	var utility = new UtilityView({ el: utilityBar });
 
 	connection.on('message:chat', function(data) {
 		var video = $("#" + data.from + "_video_incoming");
-		$(video).parent().find(".video-box-caption").html(data.payload.message);
+		video.trigger('message:chat', data.payload.message)
 	});
 
 	// Register the "echo" task for super cool messaging
 	utility.registerTask('echo', function(value) {
-		localVideo.querySelector(".video-box-caption").innerHTML = value;
+		$(localVideo).find('video').trigger('message:chat', value)
 		connection.send("chat", { name: this.hostname, message: value });
 	});
 
@@ -47,5 +46,4 @@ require(['C/connection', 'V/utility'], function(ConnectionController, UtilityVie
 		$(".video-box-wrap").removeClass('has-focus').filter(this).addClass('has-focus');
 		connection.createSpeedDial();
 	});
-
 });
