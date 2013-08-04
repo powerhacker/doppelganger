@@ -17,8 +17,7 @@ define(['V/video'], function(VideoView) {
 				autoRemoveVideos: false,
 				localVideoEl: 'localVideo',
 				log: true,
-				remoteVideosEl: 'remoteVideos',
-				peerVolumeWhenSpeaking: .5
+				remoteVideosEl: 'remoteVideos'
 			});
 
 			this.driver.on('readyToCall', this.boot.bind(this));
@@ -29,11 +28,13 @@ define(['V/video'], function(VideoView) {
 				this.trigger("message", data);
 				this.trigger("message:" + data.type, data);
 			}.bind(this));
+
 		},
 
 		boot: function() {
 			var view = new VideoView({
-				el: localVideo.querySelector('video')
+				el: localVideo.querySelector('video'),
+				automute: false
 			}).render();
 			view.$el.addClass('has-focus');
 			$(localVideo).append(view.el).show();

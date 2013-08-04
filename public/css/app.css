@@ -54,6 +54,8 @@ body {
   position: absolute;
   overflow: hidden;
   top: 0;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
   -webkit-mask-image: -webkit-gradient(radial, 50% 50%, 49, 50% 50%, 50, from(black), to(white));
   width: 100%;
 }

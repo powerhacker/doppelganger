@@ -9,11 +9,19 @@ define(['hbars!T/video'], function(template) {
 	var VideoView = Marionette.ItemView.extend({
 
 		events: {
-			'video:exit'   : 'remove',
-			'message:chat' : 'setMessage'
+			'video:exit'     : 'remove',
+			'message:chat'   : 'setMessage'
 		},
 
 		template: template,
+
+		mute: function() {
+			this.video.muted = "on";
+		},
+
+		unmute: function() {
+			this.video.muted = "off";
+		},
 
 		play: function() {
 			this.video.play();
@@ -24,7 +32,9 @@ define(['hbars!T/video'], function(template) {
 			markup.find('.video-box-mask').append(this.el);
 
 			this.setElement(markup);
+
 			this.video = this.el.querySelector('video')
+			this.$video = $(this.video);
 
 			return this;
 		},
