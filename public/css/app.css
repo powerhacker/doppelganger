@@ -2,14 +2,34 @@
  * Doppleganger
  */
 
+@import "/icons/style.css";
+
 * {
   -moz-box-sizing: border-box;
   -webit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
+.flip {
+  transform: scaleY(-1) !important;
+  -webkit-transform: scaleY(-1) !important;
+}
+
+.visually-hidden { 
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px; width: 1px; 
+  margin: -1px; padding: 0; border: 0; 
+}
+
+html {
+  height: 100%;
+}
+
 body {
-  background: #000 url("/images/background.png");
+  background: #091f27;
+  height: 100%;
   font: 18px/1 Helvetica, Arial, sans-serif;
   padding: 0;
   margin: 0;
@@ -25,6 +45,59 @@ body {
   width: 100%;
 }
 
+.actionbar {
+  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  padding: 0 1em;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+.actionbar a {
+  color: rgba(255, 255, 255, 0.3);
+  display: block;
+  line-height: 60px;
+  text-decoration: none;
+  transition: 0.3s all;
+}
+
+a.actionbar__logo {
+  line-height: 1;
+  padding: 1em 0;
+  float: left;
+}
+
+.actionbar a:hover {
+  color: #fff;
+}
+
+.actionbar__nav {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+.actionbar__nav li {
+  display: inline-block;
+  margin: 0 0.5em;
+}
+
+.actionbar .actionbar__nav__control.is-active {
+  color: red;
+
+  &:hover {
+	color: lighten(red, 5%);
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
 
 /**
  * @name VideoBoxWrap
@@ -33,10 +106,11 @@ body {
  */
 
 .video-box-wrap {
+  background: #000;
   cursor: pointer;
   height: 140px;
   left: 50%;
-  margin: -75px 0 0 -75px;
+  margin: -70px 0 0 -70px;
   position: absolute;
   transition: 0.5s transform;
   -webkit-transition: 0.5s -webkit-transform;
@@ -45,50 +119,15 @@ body {
   z-index: 4;
 }
 
-.video-box-mask {
-  background: #444 url("/images/loader.gif") 50% 50% no-repeat;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 6px 7px rgba(0, 0, 0, 0.75);
-  border-radius: 200px;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  transition: 0.3s all;
-  -webkit-transition: 0.3s all;
-  -webkit-mask-image: -webkit-gradient(radial, 50% 50%, 49, 50% 50%, 50, from(black), to(white));
-  width: 100%;
-}
-
-.video-box-mask:after {
-  border: 4px solid #AAA;
-  border-radius: 200px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-  content: "";
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  width: 100%;
-  z-index: 5;
-}
-
-.video-box-mask:hover:after {
-  border-color: gold;
-}
-
 .video-box-wrap video {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 6px 7px rgba(0, 0, 0, 0.75);
+  border: 5px solid #aaa;
   cursor: pointer;
+  display: block;
   left: -35px;
   min-height: 150px;
   max-width: 200px;
   position: relative;
-  top: -7px;
+  top: 0;
   z-index: 4;
 }
 
@@ -107,40 +146,97 @@ body {
   max-width: 460px;
 }
 
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
+
+  .video-box-wrap.has-focus {
+	height: 220px;
+	width: 220px;
+	margin: -110px 0 0 -110px;
+  }
+
+  .video-box-wrap.has-focus video {
+	left: -50px;
+	max-width: 320px;
+	min-height: 250px;
+  }
+}
+
+@media screen and (max-width: 550px), screen and (max-height: 600px) {
+
+  .video-box-wrap {
+	height: 120px;
+	margin: -60px 0 0 -60px;
+	width: 120px;
+  }
+
+  .video-box-wrap video {
+	left: -25px;
+	min-height: 110px;
+	max-width: 170px;
+	z-index: 9999;
+	position: relative;
+  }
+
+  .video-box-mask {
+	border-radius: 0;
+	-webkit-mask-image: none;
+  }
+  .video-box-mask:after {
+	display: none;
+  }
+
+  .video-box-wrap.has-focus {
+	height: 180px;
+	width: 180px;
+	margin: -90px 0 0 -90px;
+  }
+
+  .video-box-wrap.has-focus video {
+	left: -50px;
+	max-width: 280px;
+	min-height: 150px;
+  }
+}
+
 /**
  * @name isFullscreen
  */
 
-.is-fullscreen .video-box-wrap.has-focus {
+.mode-fullscreen .video-box-wrap {
+  top: auto;
+  bottom: 50px;
+}
+
+.mode-fullscreen .video-box-wrap.has-focus,
+.mode-fullscreen .video-box-wrap.has-focus .video-box-mask {
   border: 0px none;
   border-radius: 0;
+  bottom: auto;
   height: 100%;
   left: 0px;
   margin: 0px;
   top: 0px;
   z-index: 0;
+  transition: none;
+  -webkit-transition: none;
   -webkit-mask: none;
   width: 100%;
 }
 
-.is-fullscreen .video-box-wrap.has-focus:after {
+.mode-fullscreen .video-box-wrap.has-focus .video-box-mask:after {
   display: none;
 }
 
-.is-fullscreen .video-box-wrap.has-focus video {
+.mode-fullscreen .video-box-wrap.has-focus video {
+  background: #111115;
   height: auto;
   left: 0px;
   max-width: none;
   max-height: none;
+  min-height: 100%;
   top: 0px;
   width: 100%;
   z-index: 0;
-}
-
-.is-fullscreen .video-box-caption {
-  bottom: 17px;
-  font-size: 18px;
-  padding: 10px 0px;
 }
 
 
@@ -165,11 +261,11 @@ body {
   animation: 0.1s popout;
   -webkit-animation: 0.1s popout;
   background: #d9d9d9;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow:
-      inset 0 1px 0 #fff,
-	  inset 0 0 1px #999,
-	  0px 1px 3px rgba(0, 0, 0, 0.4);
+  inset 0 1px 0 #fff,
+  inset 0 0 1px #999,
+  0px 1px 3px rgba(0, 0, 0, 0.4);
   border: 1px solid #aaa;
   color: #222;
   display: none;
@@ -179,19 +275,20 @@ body {
   margin-left: -45%;
   max-height: 300px;
   max-width: 300px;
-  overflow: hidden;
-  padding: 0.75em;
+  padding: 0.75em 1.25em;
   position: absolute;
   text-align: left;
   text-shadow: 0 1px 0 #fff;
   top: 85%;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   width: 100%;
   z-index: 6;
 }
 
 .video-box-caption:after {
   border: 10px solid #D3D3D3;
-  border-color: transparent transparent  #D3D3D3 transparent;
+  border-color: transparent transparent #D3D3D3 transparent;
   content: "";
   left: 50%;
   margin-left: -10px;
@@ -216,18 +313,27 @@ body {
   bottom: 0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   left: 0;
+  opacity: 0;
   padding: 5px 5px 5px 25px;
   position: absolute;
   width: 100%;
   z-index: 3;
+  -webkit-transition: 0.3s opacity;
+  transition: 0.3s opacity;
+}
+
+.utility-bar:hover, .utility-bar:focus {
+  opacity: 1;
 }
 
 .utility-bar:before {
-  content: "»";
+  content: "☺";
   color: #d9d9d9;
+  font-size: 16px;
+  font-weight: 100;
   left: 7px;
   position: absolute;
-  top: 9px;
+  top: 11px;
 }
 
 .utility-bar-message {
@@ -245,4 +351,17 @@ body {
 
 .error .utility-bar-message {
   background: #922;
+}
+
+.region--backdrop {
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+.region--videos {
+  position: relative;
+  z-index: 1;
 }

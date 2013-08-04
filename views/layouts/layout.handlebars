@@ -6,13 +6,23 @@
 	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+	<div id="main"></div>
 	{{{body}}}
+	<div id="modals"></div>
 
-	<script src="http://simplewebrtc.com/latest.js"></script>
-	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<form class="utility-bar" id="utility">
+		<input name="command" type="text" class="utility-bar-message">
+	</form>
+
+	<script src="/javascripts/vendor/socket.io.js"></script>
+	<script src="/javascripts/vendor/simplewebrtc.js"></script>
+	<script src="/javascripts/vendor/jquery.js"></script>
 	<script src="/javascripts/vendor/underscore.js"></script>
 	<script src="/javascripts/vendor/backbone.js"></script>
 	<script src="/javascripts/vendor/marionette.js"></script>
+	<script src="/javascripts/vendor/hex/tools.js"></script>
+    <script src="/javascripts/vendor/hex/grid.js"></script>
+    <script src="/javascripts/vendor/hex/calculations.js"></script>
 
 	<script data-main="/javascripts/setup" src="/javascripts/vendor/require.js"></script>
 
