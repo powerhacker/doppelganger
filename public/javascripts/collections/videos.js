@@ -2,6 +2,8 @@
  * @name VideosCollection
  */
 
-define(function() {
-	return Backbone.Collection.extend({});
+define(['M/video'] ,function(Video) {
+	return Backbone.Collection.extend({
+		model: Video
+	});
 });

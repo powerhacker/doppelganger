@@ -6,9 +6,10 @@
  */
 
 define(function() {
+	var $window = $(window);
+	var $body = $("body");
 
 	var UtilityView = Marionette.ItemView.extend({
-
 		commandList: [],
 		current: 0,
 
@@ -23,9 +24,11 @@ define(function() {
 
 			mode: function(value) {
 				var acceptable = ['fullscreen', 'default']
-				var classes = acceptable.map(function(c) { return 'is-' + c });
-				$("body").removeClass(classes.join(' '));
-				$("body").addClass(	'is-' + value);
+				var classes = acceptable.map(function(c) { return 'mode-' + c });
+				$body.removeClass(classes.join(' '));
+				$body.addClass('mode-' + value);
+
+				$window.trigger('resize');
 			}
 		},
 
@@ -67,26 +70,29 @@ define(function() {
 			}, 200);
 		},
 
+		clear: function() {
+			this.el.elements.command.value = '';
+		},
+
 		handleSubmit: function(e) {
 			e.preventDefault();
+
 			var command = this.el.elements.command;
+			var value = command.value;
+			var action = 'echo'
+			var statement = command.value.match(/\/(\w+?)\b(.+)/);
 
 			this.current = this.commandList.length;
 
-			var statement = command.value.split(" ");
-			var action = statement[0];
-			var value = statement.slice(1).join(" ");
+			action = (statement? statement[1] : action).trim()
+			value = (statement? statement[2] : value).trim()
 
 			if (action in this.actions) {
 				this.actions[action](value);
-				this.commandList.push(command.value);
-				command.value = action + " ";
-			} else {
-				this.actions.echo(command.value)
-				command.value = '';
+				this.commandList.push(value);
+				this.clear();
 			}
 		}
-
 	});
 
 	return UtilityView;

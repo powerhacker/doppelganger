@@ -8,9 +8,9 @@ define(['hbars!T/video'], function(template) {
 
 	var VideoView = Marionette.ItemView.extend({
 
-		events: {
-			'video:exit'     : 'remove',
-			'message:chat'   : 'setMessage'
+		modelEvents: {
+			'change:message' : 'setMessage',
+			'remove'         : 'remove'
 		},
 
 		template: template,
@@ -28,13 +28,16 @@ define(['hbars!T/video'], function(template) {
 		},
 
 		render: function() {
-			var markup = $(this.template())
-			markup.find('.video-box-mask').append(this.el);
+			var markup = $(this.template());
+			var video = this.video = this.model.get('videoEl');
+
+			this.$video = $(this.video);
+
+			markup.find('.video-box-mask').append(video);
 
 			this.setElement(markup);
 
-			this.video = this.el.querySelector('video')
-			this.$video = $(this.video);
+			this.model.get('local') && this.$el.addClass('has-focus');
 
 			return this;
 		},

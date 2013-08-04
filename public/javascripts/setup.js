@@ -32,18 +32,14 @@ require(['C/connection', 'V/utility'], function(ConnectionController, UtilityVie
 	var utility = new UtilityView({ el: utilityBar });
 
 	connection.on('message:chat', function(data) {
-		var video = $("#" + data.from + "_video_incoming");
-		video.trigger('message:chat', data.payload.message)
+		var model = connection.collection.get(data.from);
+		model.set('message', data.payload.message)
 	});
 
 	// Register the "echo" task for super cool messaging
 	utility.registerTask('echo', function(value) {
-		$(localVideo).find('video').trigger('message:chat', value)
+		var model = connection.collection.findWhere({ local: true });
+		model.set('message', value);
 		connection.send("chat", { name: this.hostname, message: value });
-	});
-
-	$("body").on('click', '.video-box-wrap', function() {
-		$(".video-box-wrap").removeClass('has-focus').filter(this).addClass('has-focus');
-		connection.createSpeedDial();
 	});
 });

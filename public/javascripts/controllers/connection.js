@@ -6,7 +6,10 @@
  * @extends Marionette.Controller
  */
 
-define(['V/video'], function(VideoView) {
+define([
+	'views/videos',
+	'collections/videos'
+], function(VideosView, VideosCollection) {
 
 	var ConnectionController = Marionette.Controller.extend({
 
@@ -24,60 +27,34 @@ define(['V/video'], function(VideoView) {
 			this.driver.on('videoAdded', this.addVideo.bind(this));
 			this.driver.on('videoRemoved', this.removeVideo.bind(this));
 
+			this.collection = new VideosCollection();
+
+			this.view = new VideosView({
+				el: remoteVideos,
+				collection: this.collection
+			});
+
 			this.driver.connection.on('message', function(data) {
 				this.trigger("message", data);
 				this.trigger("message:" + data.type, data);
 			}.bind(this));
-
 		},
 
-		boot: function() {
-			var view = new VideoView({
-				el: localVideo.querySelector('video'),
-				automute: false
-			}).render();
-			view.$el.addClass('has-focus');
-			$(localVideo).append(view.el).show();
-			view.play();
+		boot: function(id) {
+			this.collection.add({
+				id: id,
+				local: true,
+				videoEl: localVideo.querySelector('video')
+ 			});
 			this.driver.joinRoom(window.location.pathname.slice(1));
 		},
 
-		addVideo: function(video) {
-			var view = new VideoView({ el: video }).render()
-			remoteVideos.appendChild(view.el);
-			view.play();
-			this.createSpeedDial();
+		addVideo: function(video, data) {
+			this.collection.add(data);
 		},
 
-		makeRotaryDial: function(offset) {
-			var videos = $(".video-box-wrap").not(".has-focus");
-			var size = 320;
-			var rotation = 90 + (offset || 0);
-
-			videos.each(function(index, video) {
-				var percent = index / videos.length;
-				var radians = (Math.PI / 180) * ((percent * 360) + rotation)
-				var x = Math.sin(radians) * size | 0;
-				var y = Math.cos(radians) * size | 0;
-
-				setTimeout(function() {
-					$(video).css("transform", [
-						"translate(" + x + "px," + y + "px)",
-						"translateZ(0) rotateZ(360deg)"
-					].join(" "));
-				}, 200 * index);
-			});
-		},
-
-		createSpeedDial: function() {
-			this.makeRotaryDial();
-		},
-
-		removeVideo: function(video) {
-			$(video).trigger('video:exit')
-			var $videos = $(".video-box-wrap");
-			if ($videos.filter(".has-focus").length === 0) $videos.first().addClass('has-focus');
-			this.createSpeedDial();
+		removeVideo: function(video, data) {
+			this.collection.remove(data.id);
 		},
 
 		send: function(type, data) {
@@ -86,5 +63,4 @@ define(['V/video'], function(VideoView) {
 	});
 
 	return ConnectionController;
-
 });
