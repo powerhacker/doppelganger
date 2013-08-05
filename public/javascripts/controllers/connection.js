@@ -46,6 +46,7 @@ define([
 				local: true,
 				videoEl: localVideo.querySelector('video')
  			});
+			foo = this.driver;
 			this.driver.joinRoom(window.location.pathname.slice(1));
 		},
 

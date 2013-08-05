@@ -233,6 +233,8 @@ body {
   text-align: left;
   text-shadow: 0 1px 0 #fff;
   top: 85%;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   width: 100%;
   z-index: 6;
 }

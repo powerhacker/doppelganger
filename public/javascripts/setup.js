@@ -27,7 +27,8 @@ requirejs.config({
 	}
 });
 
-require(['C/connection', 'V/utility'], function(ConnectionController, UtilityView) {
+define(['C/connection', 'V/utility'], function(ConnectionController, UtilityView) {
+
 	var connection = new ConnectionController();
 	var utility = new UtilityView({ el: utilityBar });
 
@@ -42,4 +43,6 @@ require(['C/connection', 'V/utility'], function(ConnectionController, UtilityVie
 		model.set('message', value);
 		connection.send("chat", { name: this.hostname, message: value });
 	});
+
+	return connection;
 });
