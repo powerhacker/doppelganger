@@ -137,6 +137,14 @@ body {
 	max-width: 170px;
   }
 
+  .video-box-mask {
+	border-radius: 0;
+	-webkit-mask-image: none;
+  }
+  .video-box-mask:after {
+	display: none;
+  }
+
   .video-box-wrap.has-focus {
 	height: 180px;
 	width: 180px;
