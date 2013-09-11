@@ -746,7 +746,12 @@ function WebRTC(opts) {
             autoAdjustMic: false,
             media: {
                 audio: false,
-                video: true
+                video: {
+					mandatory: {
+						maxWidth: 320,
+						maxHeight: 180
+					}
+				}
             },
             detectSpeakingEvents: false
         };
@@ -818,8 +823,16 @@ WebRTC.prototype.createPeer = function (opts) {
 };
 
 WebRTC.prototype.startLocalMedia = function (mediaConstraints, cb) {
-    var self = this;
-    var constraints = mediaConstraints || {video: true, audio: true};
+	var self = this;
+    var constraints = mediaConstraints || {
+		video: {
+			mandatory: {
+				maxWidth: 320,
+				maxHeight: 240
+			}
+		},
+		audio: false
+	};
 
     getUserMedia(constraints, function (err, stream) {
         if (!err) {
