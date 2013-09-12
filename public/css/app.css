@@ -102,6 +102,11 @@ body {
 	max-width: 170px;
   }
 
+.video-box-wrap video.flip {
+  transform: scaleY(-1);
+  -webkit-transform: scaleY(-1) !important;
+}
+
   .video-box-mask {
 	border-radius: 0;
 	-webkit-mask-image: none;

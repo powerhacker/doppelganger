@@ -29,7 +29,7 @@ requirejs.config({
 
 define(['C/connection', 'V/utility'], function(ConnectionController, UtilityView) {
 
-	var connection = new ConnectionController();
+	var connection = window.connection = new ConnectionController();
 	var utility = new UtilityView({ el: utilityBar });
 
 	connection.on('message:chat', function(data) {

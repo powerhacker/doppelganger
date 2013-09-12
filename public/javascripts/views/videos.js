@@ -37,6 +37,12 @@ define(['views/video'], function(VideoView) {
 		},
 
 		drawFocus: function(e) {
+			console.log(e);
+			if (e.shiftKey) {
+				$(e.currentTarget).find("video").toggleClass("flip");
+				return false;
+			}
+
 			this.videos().removeClass('has-focus');
 			$(e.currentTarget).addClass('has-focus');
 			this.organize();
