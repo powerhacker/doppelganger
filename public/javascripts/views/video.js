@@ -33,7 +33,7 @@ define(['hbars!T/video'], function(template) {
 
 			this.$video = $(this.video);
 
-			markup.find('.video-box-mask').append(video);
+			markup.prepend(video);
 
 			this.setElement(markup);
 

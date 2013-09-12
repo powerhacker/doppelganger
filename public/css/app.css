@@ -33,6 +33,7 @@ body {
  */
 
 .video-box-wrap {
+  background: #000;
   cursor: pointer;
   height: 140px;
   left: 50%;
@@ -45,22 +46,8 @@ body {
   z-index: 4;
 }
 
-.video-box-mask {
-  background: #444 url("/images/loader.gif") 50% 50% no-repeat;
-  border: 5px solid #aaa;
-  border-radius: 4px
-  height: 100%;
-  left: 0;
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  transition: 0.3s transform;
-  -webkit-transition: 0.3s -webkit-transform;
-  width: 100%;
-}
-
 .video-box-wrap video {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 6px 7px rgba(0, 0, 0, 0.75);
+  border: 5px solid #aaa;
   cursor: pointer;
   display: block;
   left: -35px;
