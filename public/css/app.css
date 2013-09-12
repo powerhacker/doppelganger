@@ -47,49 +47,27 @@ body {
 
 .video-box-mask {
   background: #444 url("/images/loader.gif") 50% 50% no-repeat;
-  border-radius: 200px;
+  border: 5px solid #aaa;
+  border-radius: 4px
   height: 100%;
   left: 0;
   position: absolute;
   overflow: hidden;
   top: 0;
-  transition: 0.3s all;
-  -webkit-transition: 0.3s all;
-  -webkit-mask-image: -webkit-gradient(radial, 50% 50%, 49, 50% 50%, 50, from(black), to(white));
+  transition: 0.3s transform;
+  -webkit-transition: 0.3s -webkit-transform;
   width: 100%;
-}
-
-.video-box-mask:after {
-  border: 4px solid #AAA;
-  border-radius: 200px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-  content: "";
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  transform-origin: 50% 50%;
-  -webkit-transform-origin: 50% 50%;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  width: 100%;
-  z-index: 5;
-}
-
-.video-box-mask:hover:after {
-  border-color: gold;
 }
 
 .video-box-wrap video {
   box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 6px 7px rgba(0, 0, 0, 0.75);
   cursor: pointer;
+  display: block;
   left: -35px;
   min-height: 150px;
   max-width: 200px;
   position: relative;
-  top: -7px;
+  top: 0;
   z-index: 4;
 }
 
