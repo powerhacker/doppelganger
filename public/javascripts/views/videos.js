@@ -61,7 +61,7 @@ define(['views/video'], function(VideoView) {
 
 		makeFullscreenLayout: function() {
 			var $videos = this.videosWithout('.has-focus');
-			var size = $videos.width() * 1.1;
+			var size = $videos.width() * 1.7;
 			var offset = (size * ($videos.length -1)) / 2
 
 			$videos.each(function(index, el) {
