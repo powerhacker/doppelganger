@@ -748,8 +748,8 @@ function WebRTC(opts) {
                 audio: false,
                 video: {
 					mandatory: {
-						maxWidth: 320,
-						maxHeight: 180
+						maxWidth: 480,
+						maxHeight: 480
 					}
 				}
             },
