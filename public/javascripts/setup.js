@@ -44,5 +44,9 @@ define(['C/connection', 'V/utility'], function(ConnectionController, UtilityView
 		connection.send("chat", { name: this.hostname, message: value });
 	});
 
+	setInterval(function() {
+		$(_.shuffle(document.querySelectorAll('video'))[0]).trigger('click');
+	}, 10000);
+
 	return connection;
 });
