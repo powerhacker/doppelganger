@@ -4,11 +4,11 @@
  */
 
 define([
-	'hbars!../templates/scene',
 	'core',
 	'./honeycomb',
-	'./utility'
-], function(template, Core, Honeycomb, Utility) {
+	'./utility',
+	'hbars!../templates/scene'
+], function(App, Honeycomb, Utility, template) {
 	return Marionette.Layout.extend({
 		className: 'scene',
 		template: template,
