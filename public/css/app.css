@@ -365,3 +365,9 @@ a.actionbar__logo {
   position: relative;
   z-index: 1;
 }
+
+.backdrop__layer {
+  left: 0;
+  position: absolute;
+  top: 0;
+}

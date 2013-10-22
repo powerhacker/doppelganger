@@ -3,7 +3,10 @@
  * @extends Marionette.ItemView
  */
 
-define(['hbars!../templates/utility', 'application'], function(template, App) {
+define([
+	'hbars!../templates/utility',
+	'core'
+], function(template, App) {
 	return Marionette.ItemView.extend({
 		template: template,
 
