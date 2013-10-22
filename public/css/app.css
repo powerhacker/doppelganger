@@ -2,19 +2,34 @@
  * Doppleganger
  */
 
+@import "/icons/style.css";
+
 * {
   -moz-box-sizing: border-box;
   -webit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
- .flip {
-   transform: scaleY(-1) !important;
-   -webkit-transform: scaleY(-1) !important;
- }
+.flip {
+  transform: scaleY(-1) !important;
+  -webkit-transform: scaleY(-1) !important;
+}
+
+.visually-hidden { 
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px; width: 1px; 
+  margin: -1px; padding: 0; border: 0; 
+}
+
+html {
+  height: 100%;
+}
 
 body {
-  background: #000 url("/images/background.png");
+  background: #091f27;
+  height: 100%;
   font: 18px/1 Helvetica, Arial, sans-serif;
   padding: 0;
   margin: 0;
@@ -30,6 +45,59 @@ body {
   width: 100%;
 }
 
+.actionbar {
+  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  padding: 0 1em;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+.actionbar a {
+  color: rgba(255, 255, 255, 0.3);
+  display: block;
+  line-height: 60px;
+  text-decoration: none;
+  transition: 0.3s all;
+}
+
+a.actionbar__logo {
+  line-height: 1;
+  padding: 1em 0;
+  float: left;
+}
+
+.actionbar a:hover {
+  color: #fff;
+}
+
+.actionbar__nav {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+.actionbar__nav li {
+  display: inline-block;
+  margin: 0 0.5em;
+}
+
+.actionbar .actionbar__nav__control.is-active {
+  color: red;
+
+  &:hover {
+	color: lighten(red, 5%);
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
 
 /**
  * @name VideoBoxWrap
@@ -283,4 +351,17 @@ body {
 
 .error .utility-bar-message {
   background: #922;
+}
+
+.region--backdrop {
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+.region--videos {
+  position: relative;
+  z-index: 1;
 }
