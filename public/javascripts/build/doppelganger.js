@@ -8916,27 +8916,6 @@ define('connection/core',[
 	return Connection;
 });
 
-/**
- * @name Application
- * @desc The brain of the application
- */
-
-define('Core',[],function() {
-	var Application = new Marionette.Application();
-
-	Application.on('initialize:after', function() {
-		Backbone.history.start();
-	});
-
-	Application.addRegions({
-		modals  : "#modals",
-		main    : "#main",
-		utility : "#utility"
-	});
-
-	return Application;
-});
-
 define('text',{});
 /*
 
@@ -9309,15 +9288,6 @@ define("Handlebars", (function (global) {
 }(this)));
 
 define('hbars',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
-define('hbars!presentation/templates/scene', ['Handlebars'], function (Handlebars) { return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<div class=\"region--utility\"></div>\n<div class=\"region--backdrop\"></div>\n<div class=\"region--videos\"></div>";
-  }); });
-
 define('hbars!presentation/templates/honeycomb', ['Handlebars'], function (Handlebars) { return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -9475,17 +9445,26 @@ define('presentation/views/utility',[
 	});
 });
 
+define('hbars!presentation/templates/scene', ['Handlebars'], function (Handlebars) { return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div class=\"region--utility\"></div>\n<div class=\"region--backdrop\"></div>\n<div class=\"region--videos\"></div>";
+  }); });
+
 /**
  * @name Scene
  * @extends Marionette.Layout
  */
 
 define('presentation/views/scene',[
-	'hbars!../templates/scene',
 	'core',
 	'./honeycomb',
-	'./utility'
-], function(template, Core, Honeycomb, Utility) {
+	'./utility',
+	'hbars!../templates/scene'
+], function(App, Honeycomb, Utility, template) {
 	return Marionette.Layout.extend({
 		className: 'scene',
 		template: template,
@@ -9513,7 +9492,7 @@ define('presentation/views/scene',[
  */
 
 define('presentation/core',[
-	'Core',
+	'core',
 	'./views/scene'
 ], function(App, Scene) {
 	var Presentation = App.module("Presentation");

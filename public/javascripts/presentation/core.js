@@ -3,7 +3,7 @@
  */
 
 define([
-	'Core',
+	'core',
 	'./views/scene'
 ], function(App, Scene) {
 	var Presentation = App.module("Presentation");
