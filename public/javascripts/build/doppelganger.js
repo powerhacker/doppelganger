@@ -8875,6 +8875,7 @@ define('connection/controller',[
 
 /**
  * @name Connections
+ * @desc The interface between clients, socket.io, and STUN
  */
 
 define('connection/core',[
@@ -9405,7 +9406,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<nav class=\"actionbar\">\n	<a href=\"/\" class=\"actionbar__logo\">\n		<img src=\"/images/logo.png\" alt=\"DoppelGanger\">\n	</a>\n	<ul class=\"actionbar__nav\">\n		<li>\n			<a href=\"#\" class=\"actionbar__nav__control actionbar__nav__control--mute\">\n				<i class=\"icon\">&#xe001;</i>\n				<i class=\"visually-hidden\">Mute Microphone</i>\n			</a>\n		</li>\n		<li>\n			<a href=\"#\" class=\"actionbar__nav__control actionbar__nav__control--pause\">\n				<i class=\"icon\">&#xe005;</i>\n				<i class=\"visually-hidden\">Pause Video</i>\n			</a>\n		</li>\n	</ul>\n</nav>";
+  return "<nav class=\"actionbar\">\n	<a href=\"/\" class=\"actionbar__logo\">\n		<img src=\"/images/logo.png\" alt=\"DoppelGanger\">\n	</a>\n	<ul class=\"actionbar__nav\">\n		<li>\n			<a href=\"#\" class=\"actionbar__nav__control actionbar__nav__control--mute\">\n				<i class=\"icon\">&#xe602;</i>\n				<i class=\"visually-hidden\">Mute Microphone</i>\n			</a>\n		</li>\n		<li>\n			<a href=\"#\" class=\"actionbar__nav__control actionbar__nav__control--pause\">\n				<i class=\"icon\">&#xe603;</i>\n				<i class=\"visually-hidden\">Pause Video</i>\n			</a>\n		</li>\n	</ul>\n</nav>";
   }); });
 
 /**
@@ -9488,7 +9489,8 @@ define('presentation/views/scene',[
 });
 
 /**
- * @name Connections
+ * @name Presentation
+ * @desc View logic
  */
 
 define('presentation/core',[
