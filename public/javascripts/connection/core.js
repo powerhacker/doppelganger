@@ -3,7 +3,7 @@
  */
 
 define([
-	'application',
+	'core',
 	'connection/controller'
 ], function(App, Controller) {
 	var Connection = App.module("Connection");

@@ -2,30 +2,10 @@
  * @name Setup
  */
 
-requirejs.config({
-	baseURL: '/javascripts',
-
-	hbars: {
-		extension: '.html'
-	},
-
-	paths: {
-		Handlebars: 'vendor/handlebars',
-		text: 'vendor/text',
-		hbars: 'vendor/hbars'
-	},
-
-	shim: {
-		Handlebars: {
-			exports: 'Handlebars'
-		}
-	}
-});
-
 require([
-	'application',
-	'connection/app',
-	'presentation/app'
+	'core',
+	'connection/core',
+	'presentation/core'
 ], function(App) {
 	App.start();
 });

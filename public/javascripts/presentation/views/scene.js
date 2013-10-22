@@ -5,11 +5,10 @@
 
 define([
 	'hbars!../templates/scene',
-	'application',
-	'./backdrop',
-	'./videos',
+	'core',
+	'./honeycomb',
 	'./utility'
-], function(template, App, Backdrop, Videos, Utility) {
+], function(template, Core, Honeycomb, Utility) {
 	return Marionette.Layout.extend({
 		className: 'scene',
 		template: template,
@@ -21,10 +20,12 @@ define([
 		},
 
 		onDomRefresh: function() {
+			var collection = App.request('connection:streams');
+
 			this.utility.show(new Utility());
-			this.backdrop.show(new Backdrop());
-			this.videos.show(new Videos({
-				collection: App.request('connection:streams')
+
+			this.backdrop.show(new Honeycomb({
+				collection: collection
 			}));
 		}
 	});
