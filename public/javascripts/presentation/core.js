@@ -1,5 +1,6 @@
 /**
- * @name Connections
+ * @name Presentation
+ * @desc View logic
  */
 
 define([

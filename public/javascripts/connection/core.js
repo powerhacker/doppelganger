@@ -1,5 +1,6 @@
 /**
  * @name Connections
+ * @desc The interface between clients, socket.io, and STUN
  */
 
 define([
