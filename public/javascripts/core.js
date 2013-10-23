@@ -11,9 +11,8 @@ define(function() {
 	});
 
 	Application.addRegions({
-		modals  : "#modals",
-		main    : "#main",
-		utility : "#utility"
+		body       : "#region--body",
+		navigation : "#region--navigation"
 	});
 
 	return Application;

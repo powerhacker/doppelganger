@@ -6,9 +6,8 @@
 	<link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-	<div id="main"></div>
-	{{{body}}}
-	<div id="modals"></div>
+	<div id="region--navigation"></div>
+	<div id="region--body"></div>
 
 	<form class="utility-bar" id="utility">
 		<input name="command" type="text" class="utility-bar-message">
@@ -16,7 +15,8 @@
 
 	<script src="/javascripts/vendor/socket.io.js"></script>
 	<script src="/javascripts/vendor/simplewebrtc.js"></script>
-	<script src="/javascripts/build/doppelganger.js"></script>
+	<script src="/javascripts/config.js"></script>
+	<script data-main="/javascripts/setup.js" src="/javascripts/vendor/require.js"></script>
 
 </body>
 </html>

@@ -5,7 +5,8 @@
 require([
 	'core',
 	'connection/core',
-	'presentation/core'
+	'navigation/core',
+	'scene/core'
 ], function(App) {
 	App.start();
 });

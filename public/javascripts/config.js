@@ -1,4 +1,4 @@
-require.config({
+var require = {
 	baseURL: '/javascripts',
 
 	hbars: {
@@ -23,7 +23,7 @@ require.config({
 			exports: 'Backbone'
 		},
 
-		core: {
+		setup: {
 			deps: ['hex', 'marionette'],
 			exports: 'Doppelganger'
 		},
@@ -56,4 +56,4 @@ require.config({
 		}
 		return content;
 	}
-});
+};
