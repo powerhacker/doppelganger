@@ -4,8 +4,9 @@
  */
 
 define([
+	'vendor/simplewebrtc',
 	'./collections/streams'
-], function(Streams) {
+], function(SimpleWebRTC, Streams) {
 
 	var ConnectionController = Marionette.Controller.extend({
 
