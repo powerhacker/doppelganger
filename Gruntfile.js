@@ -32,20 +32,6 @@ module.exports = function(grunt) {
 		},
 
 		requirejs: {
-			development: {
-				options: {
-					baseUrl: "public/javascripts",
-					mainConfigFile: "public/javascripts/config.js",
-					name: 'vendor/almond',
-					deps: ['setup'],
-					optimize: 'none',
-					preserveLicenseComments: false,
-					insertRequire: ['setup'],
-					out: "public/javascripts/build/doppelganger.js",
-					removeCombined: true,
-					stubModules: ['text', 'hbars']
-				}
-			},
 			production: {
 				options: {
 					baseUrl: "public/javascripts",
