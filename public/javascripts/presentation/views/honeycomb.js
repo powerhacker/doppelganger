@@ -32,9 +32,6 @@ define(['hbars!../templates/honeycomb'], function(template) {
 			var swap = this.ui.overlay[0].cloneNode();
 			var ctx = swap.getContext('2d');
 
-			var width = HT.Hexagon.Static.WIDTH;
-			var height = HT.Hexagon.Static.HEIGHT;
-
 			for (var i = 0, len = data.length; i < len; i++) {
 				var hex = tiles[i];
 				var entry = data[i];

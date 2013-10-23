@@ -6,23 +6,23 @@
 define(function() {
 	return Backbone.Model.extend({
 
-		toJSON: function() {
+		toJSON: function(width, height, zoom) {
 			var attrs = _.clone(this.attributes);
 			var el = attrs.videoEl;
 
-			var hexWidth = HT.Hexagon.Static.WIDTH;
-			var hexHeight = HT.Hexagon.Static.HEIGHT;
+			var maskWidth = width;
+			var maskHeight = height;
 
-			var scaleX = hexWidth / el.videoWidth;
-			var scaleY = hexHeight / el.videoHeight;
+			var scaleX = maskWidth / el.videoWidth;
+			var scaleY = maskHeight / el.videoHeight;
 
-			var scale = attrs.scale = Math.max(scaleX, scaleY);
+			var scale = attrs.scale = Math.max(scaleX, scaleY) * (zoom || 1);
 
 			var height = attrs.height = el.videoHeight * scale;
 			var width = attrs.width = el.videoWidth * scale;
 
-			attrs.centerX = (width - hexWidth) * 0.5;
-			attrs.centerY = (height - hexHeight) * 0.5;
+			attrs.centerX = (width - maskWidth) * 0.5;
+			attrs.centerY = (height - maskHeight) * 0.5;
 
 			return attrs;
 		}

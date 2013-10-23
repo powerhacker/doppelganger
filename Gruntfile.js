@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 				},
 				output: "public/javascripts/vendor",
 				versions: {
-					"2.0.3": ["ajax", "wrap", "deprecated", "sizzle", "offset", "dimensions", "effects"]
+					"2.0.3": ["ajax", "wrap", "deprecated", "sizzle", "effects"]
  				}
 	  		}
 		},
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: [
-					'public/javascripts/**/*.js',
+					'public/javascripts/**/*',
 					'!public/javascripts/build/**/*.js'
 				],
 				tasks: ['requirejs']

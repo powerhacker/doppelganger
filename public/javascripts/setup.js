@@ -5,7 +5,7 @@
 require([
 	'core',
 	'connection/core',
-	'presentation/core'
+	'halloween/core'
 ], function(App) {
 	App.start();
 });

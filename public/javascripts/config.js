@@ -1,4 +1,4 @@
-require.config({
+var require = {
 	baseURL: '/javascripts',
 
 	hbars: {
@@ -23,7 +23,7 @@ require.config({
 			exports: 'Backbone'
 		},
 
-		core: {
+		setup: {
 			deps: ['hex', 'marionette'],
 			exports: 'Doppelganger'
 		},
@@ -43,6 +43,10 @@ require.config({
 
 		simplewebrtc: {
 			exports: 'SimpleWebRTC'
+		},
+
+		'vendor/jquery.parallax': {
+			exports: 'Parallax'
 		}
 	},
 	stubModules: ['text', 'hbars'],
@@ -56,4 +60,4 @@ require.config({
 		}
 		return content;
 	}
-});
+}

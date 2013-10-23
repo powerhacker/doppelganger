@@ -35,16 +35,6 @@ body {
   margin: 0;
 }
 
-.video-box {
-  height: 100%;
-  left: 0;
-  overflow: hidden;
-  padding: 0 15px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
 .actionbar {
   background: rgba(0, 0, 0, 0.5);
   left: 0;
@@ -97,208 +87,6 @@ a.actionbar__logo {
   top: 0;
   left: 0;
   z-index: 0;
-}
-
-/**
- * @name VideoBoxWrap
- * @desc Wraps around videos to add nice things like rounded corners and provides
- * a container to trap other elements associated with a video.
- */
-
-.video-box-wrap {
-  background: #000;
-  cursor: pointer;
-  height: 140px;
-  left: 50%;
-  margin: -70px 0 0 -70px;
-  position: absolute;
-  transition: 0.5s transform;
-  -webkit-transition: 0.5s -webkit-transform;
-  top: 50%;
-  width: 140px;
-  z-index: 4;
-}
-
-.video-box-wrap video {
-  border: 5px solid #aaa;
-  cursor: pointer;
-  display: block;
-  left: -35px;
-  min-height: 150px;
-  max-width: 200px;
-  position: relative;
-  top: 0;
-  z-index: 4;
-}
-
-.video-box-wrap.has-focus {
-  margin: -170px 0 0 -170px;
-  height: 340px;
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
-  width: 340px;
-  z-index: 5;
-}
-
-.video-box-wrap.has-focus video {
-  left: -92px;
-  min-height: 340px;
-  max-width: 460px;
-}
-
-@media screen and (max-width: 768px), screen and (max-height: 768px) {
-
-  .video-box-wrap.has-focus {
-	height: 220px;
-	width: 220px;
-	margin: -110px 0 0 -110px;
-  }
-
-  .video-box-wrap.has-focus video {
-	left: -50px;
-	max-width: 320px;
-	min-height: 250px;
-  }
-}
-
-@media screen and (max-width: 550px), screen and (max-height: 600px) {
-
-  .video-box-wrap {
-	height: 120px;
-	margin: -60px 0 0 -60px;
-	width: 120px;
-  }
-
-  .video-box-wrap video {
-	left: -25px;
-	min-height: 110px;
-	max-width: 170px;
-	z-index: 9999;
-	position: relative;
-  }
-
-  .video-box-mask {
-	border-radius: 0;
-	-webkit-mask-image: none;
-  }
-  .video-box-mask:after {
-	display: none;
-  }
-
-  .video-box-wrap.has-focus {
-	height: 180px;
-	width: 180px;
-	margin: -90px 0 0 -90px;
-  }
-
-  .video-box-wrap.has-focus video {
-	left: -50px;
-	max-width: 280px;
-	min-height: 150px;
-  }
-}
-
-/**
- * @name isFullscreen
- */
-
-.mode-fullscreen .video-box-wrap {
-  top: auto;
-  bottom: 50px;
-}
-
-.mode-fullscreen .video-box-wrap.has-focus,
-.mode-fullscreen .video-box-wrap.has-focus .video-box-mask {
-  border: 0px none;
-  border-radius: 0;
-  bottom: auto;
-  height: 100%;
-  left: 0px;
-  margin: 0px;
-  top: 0px;
-  z-index: 0;
-  transition: none;
-  -webkit-transition: none;
-  -webkit-mask: none;
-  width: 100%;
-}
-
-.mode-fullscreen .video-box-wrap.has-focus .video-box-mask:after {
-  display: none;
-}
-
-.mode-fullscreen .video-box-wrap.has-focus video {
-  background: #111115;
-  height: auto;
-  left: 0px;
-  max-width: none;
-  max-height: none;
-  min-height: 100%;
-  top: 0px;
-  width: 100%;
-  z-index: 0;
-}
-
-
-/**
- * @name VideoBoxCaption
- * @desc Used to display messages sent back and forth between clients
- */
-
-@keyframes popout {
-  0%   { transform: scale(0.9); }
-  70%  { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-@-webkit-keyframes popout {
-  0%   { -webkit-transform: scale(0.9); }
-  70%  { -webkit-transform: scale(1.05); }
-  100% { -webkit-transform: scale(1); }
-}
-
-.video-box-caption {
-  animation: 0.1s popout;
-  -webkit-animation: 0.1s popout;
-  background: #d9d9d9;
-  border-radius: 10px;
-  box-shadow:
-  inset 0 1px 0 #fff,
-  inset 0 0 1px #999,
-  0px 1px 3px rgba(0, 0, 0, 0.4);
-  border: 1px solid #aaa;
-  color: #222;
-  display: none;
-  font-size: 14px;
-  left: 50%;
-  line-height: 1.5em;
-  margin-left: -45%;
-  max-height: 300px;
-  max-width: 300px;
-  padding: 0.75em 1.25em;
-  position: absolute;
-  text-align: left;
-  text-shadow: 0 1px 0 #fff;
-  top: 85%;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  width: 100%;
-  z-index: 6;
-}
-
-.video-box-caption:after {
-  border: 10px solid #D3D3D3;
-  border-color: transparent transparent #D3D3D3 transparent;
-  content: "";
-  left: 50%;
-  margin-left: -10px;
-  position: absolute;
-  top: -19px;
-}
-
-.video-box-caption.is-visible {
-  animation: 0.8s popout;
-  display: block;
 }
 
 /**
@@ -370,4 +158,48 @@ a.actionbar__logo {
   left: 0;
   position: absolute;
   top: 0;
+}
+
+#scene {
+  background: #151018;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.layer {
+  left: 0;
+  position: absolute;
+  bottom: 0;
+}
+
+.mask {
+  position: absolute;
+  left: -99999px;
+}
+
+.ghoul__canvas {
+  bottom: 190px;
+  left: 1023px;
+  overflow: hidden;
+  position: absolute;
+  -webkit-filter: brightness(1.5) contrast(1.5) sepia(0.3);
+}
+
+.moon__canvas {
+  bottom: 730px;
+  left: 844px;
+  overflow: hidden;
+  position: absolute;
+  -webkit-filter: brightness(1.5) contrast(1.5) sepia(0.3) saturate(2);
+}
+
+.pumpkin__canvas {
+  bottom: 30px;
+  left: 335px;
+  overflow: hidden;
+  position: absolute;
+  -webkit-filter: brightness(1.5) contrast(1.5) sepia(0.3) saturate(2);
 }
