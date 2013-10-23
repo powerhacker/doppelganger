@@ -160,13 +160,13 @@ a.actionbar__logo {
   top: 0;
 }
 
-#scene {
-  background: #151018;
+.scene {
+  position: absolute;
+  top: 0;
+  left: 0;
   list-style: none;
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
 }
 
 .layer {
