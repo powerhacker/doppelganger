@@ -10,9 +10,12 @@
   box-sizing: border-box;
 }
 
-.flip {
-  transform: scaleY(-1) !important;
-  -webkit-transform: scaleY(-1) !important;
+body {
+  background: #091f27;
+  height: 100%;
+  font: 18px/1 Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
 .visually-hidden { 
@@ -21,28 +24,6 @@
   clip: rect(0 0 0 0); 
   height: 1px; width: 1px; 
   margin: -1px; padding: 0; border: 0; 
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  background: #091f27;
-  height: 100%;
-  font: 18px/1 Helvetica, Arial, sans-serif;
-  padding: 0;
-  margin: 0;
-}
-
-.video-box {
-  height: 100%;
-  left: 0;
-  overflow: hidden;
-  padding: 0 15px;
-  position: absolute;
-  top: 0;
-  width: 100%;
 }
 
 .actionbar {
@@ -69,10 +50,6 @@ a.actionbar__logo {
   float: left;
 }
 
-.actionbar a:hover {
-  color: #fff;
-}
-
 .actionbar__nav {
   margin: 0;
   padding: 0;
@@ -84,274 +61,17 @@ a.actionbar__logo {
   margin: 0 0.5em;
 }
 
-.actionbar .actionbar__nav__control.is-active {
-  color: red;
-
-  &:hover {
-	color: lighten(red, 5%);
-  }
+.actionbar__nav__control.is-active {
+  color: #c33;
 }
 
-.backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
+.actionbar__nav__control:hover {
+  color: #e55;
 }
 
 /**
- * @name VideoBoxWrap
- * @desc Wraps around videos to add nice things like rounded corners and provides
- * a container to trap other elements associated with a video.
+ * @name Regions
  */
-
-.video-box-wrap {
-  background: #000;
-  cursor: pointer;
-  height: 140px;
-  left: 50%;
-  margin: -70px 0 0 -70px;
-  position: absolute;
-  transition: 0.5s transform;
-  -webkit-transition: 0.5s -webkit-transform;
-  top: 50%;
-  width: 140px;
-  z-index: 4;
-}
-
-.video-box-wrap video {
-  border: 5px solid #aaa;
-  cursor: pointer;
-  display: block;
-  left: -35px;
-  min-height: 150px;
-  max-width: 200px;
-  position: relative;
-  top: 0;
-  z-index: 4;
-}
-
-.video-box-wrap.has-focus {
-  margin: -170px 0 0 -170px;
-  height: 340px;
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
-  width: 340px;
-  z-index: 5;
-}
-
-.video-box-wrap.has-focus video {
-  left: -92px;
-  min-height: 340px;
-  max-width: 460px;
-}
-
-@media screen and (max-width: 768px), screen and (max-height: 768px) {
-
-  .video-box-wrap.has-focus {
-	height: 220px;
-	width: 220px;
-	margin: -110px 0 0 -110px;
-  }
-
-  .video-box-wrap.has-focus video {
-	left: -50px;
-	max-width: 320px;
-	min-height: 250px;
-  }
-}
-
-@media screen and (max-width: 550px), screen and (max-height: 600px) {
-
-  .video-box-wrap {
-	height: 120px;
-	margin: -60px 0 0 -60px;
-	width: 120px;
-  }
-
-  .video-box-wrap video {
-	left: -25px;
-	min-height: 110px;
-	max-width: 170px;
-	z-index: 9999;
-	position: relative;
-  }
-
-  .video-box-mask {
-	border-radius: 0;
-	-webkit-mask-image: none;
-  }
-  .video-box-mask:after {
-	display: none;
-  }
-
-  .video-box-wrap.has-focus {
-	height: 180px;
-	width: 180px;
-	margin: -90px 0 0 -90px;
-  }
-
-  .video-box-wrap.has-focus video {
-	left: -50px;
-	max-width: 280px;
-	min-height: 150px;
-  }
-}
-
-/**
- * @name isFullscreen
- */
-
-.mode-fullscreen .video-box-wrap {
-  top: auto;
-  bottom: 50px;
-}
-
-.mode-fullscreen .video-box-wrap.has-focus,
-.mode-fullscreen .video-box-wrap.has-focus .video-box-mask {
-  border: 0px none;
-  border-radius: 0;
-  bottom: auto;
-  height: 100%;
-  left: 0px;
-  margin: 0px;
-  top: 0px;
-  z-index: 0;
-  transition: none;
-  -webkit-transition: none;
-  -webkit-mask: none;
-  width: 100%;
-}
-
-.mode-fullscreen .video-box-wrap.has-focus .video-box-mask:after {
-  display: none;
-}
-
-.mode-fullscreen .video-box-wrap.has-focus video {
-  background: #111115;
-  height: auto;
-  left: 0px;
-  max-width: none;
-  max-height: none;
-  min-height: 100%;
-  top: 0px;
-  width: 100%;
-  z-index: 0;
-}
-
-
-/**
- * @name VideoBoxCaption
- * @desc Used to display messages sent back and forth between clients
- */
-
-@keyframes popout {
-  0%   { transform: scale(0.9); }
-  70%  { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-@-webkit-keyframes popout {
-  0%   { -webkit-transform: scale(0.9); }
-  70%  { -webkit-transform: scale(1.05); }
-  100% { -webkit-transform: scale(1); }
-}
-
-.video-box-caption {
-  animation: 0.1s popout;
-  -webkit-animation: 0.1s popout;
-  background: #d9d9d9;
-  border-radius: 10px;
-  box-shadow:
-  inset 0 1px 0 #fff,
-  inset 0 0 1px #999,
-  0px 1px 3px rgba(0, 0, 0, 0.4);
-  border: 1px solid #aaa;
-  color: #222;
-  display: none;
-  font-size: 14px;
-  left: 50%;
-  line-height: 1.5em;
-  margin-left: -45%;
-  max-height: 300px;
-  max-width: 300px;
-  padding: 0.75em 1.25em;
-  position: absolute;
-  text-align: left;
-  text-shadow: 0 1px 0 #fff;
-  top: 85%;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  width: 100%;
-  z-index: 6;
-}
-
-.video-box-caption:after {
-  border: 10px solid #D3D3D3;
-  border-color: transparent transparent #D3D3D3 transparent;
-  content: "";
-  left: 50%;
-  margin-left: -10px;
-  position: absolute;
-  top: -19px;
-}
-
-.video-box-caption.is-visible {
-  animation: 0.8s popout;
-  display: block;
-}
-
-/**
- * @name UtilityBar
- * @desc Found at the bottom of the page, enables the user to
- * directly interact with the app
- */
-
-.utility-bar {
-  background: #2e3640;
-  border-top: 1px solid #111;
-  bottom: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  left: 0;
-  opacity: 0;
-  padding: 5px 5px 5px 25px;
-  position: absolute;
-  width: 100%;
-  z-index: 3;
-  -webkit-transition: 0.3s opacity;
-  transition: 0.3s opacity;
-}
-
-.utility-bar:hover, .utility-bar:focus {
-  opacity: 1;
-}
-
-.utility-bar:before {
-  content: "☺";
-  color: #d9d9d9;
-  font-size: 16px;
-  font-weight: 100;
-  left: 7px;
-  position: absolute;
-  top: 11px;
-}
-
-.utility-bar-message {
-  background: #24282d;
-  border: 1px solid #16191c;
-  border-radius: 4px;
-  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.15);
-  color: #d9d9d9;
-  padding: 5px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  transition: 0.2s all;
-  -webkit-transition: 0.2s all;
-  width: 100%; 
-}
-
-.error .utility-bar-message {
-  background: #922;
-}
 
 .region--backdrop {
   height: 100%;
@@ -364,6 +84,13 @@ a.actionbar__logo {
 .region--videos {
   position: relative;
   z-index: 1;
+}
+
+.backdrop {
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: 0;
 }
 
 .backdrop__layer {
