@@ -60,10 +60,15 @@ define(['hbars!../templates/honeycomb'], function(template) {
 
 			cancelAnimationFrame(this.frame);
 
+			var last = Date.now();
+
 			this.frame = requestAnimationFrame(function play() {
+				var isStale = Date.now() - last > (1000/30);
+
 				this.frame = requestAnimationFrame(play.bind(this))
 
-				if (data.length) {
+				if (data.length && isStale) {
+					last = Date.now();
 					this.draw(sample, data);
 				}
 			}.bind(this));

@@ -12,27 +12,37 @@ require.config({
 		jquery: 'vendor/jquery-2.0.3',
 		marionette: 'vendor/marionette',
 		text: 'vendor/text',
-		lodash: 'vendor/lodash'
+		lodash: 'vendor/lodash',
+		hex: 'vendor/hex/grid',
+		simplewebrtc: 'vendor/simplewebrtc'
 	},
 
 	shim: {
-		core: {
-			deps: ['marionette'],
-			exports: 'Doppelganger'
-		},
-
 		backbone: {
 			deps: ['lodash', 'jquery'],
 			exports: 'Backbone'
+		},
+
+		core: {
+			deps: ['hex', 'marionette'],
+			exports: 'Doppelganger'
 		},
 
 		Handlebars: {
 			exports: 'Handlebars'
 		},
 
+		hex: {
+			deps: ['vendor/hex/tools', 'vendor/hex/calculations']
+		},
+
 		marionette: {
 			deps: ['backbone'],
 			exports: 'Marionette'
+		},
+
+		simplewebrtc: {
+			exports: 'SimpleWebRTC'
 		}
 	},
 	stubModules: ['text', 'hbars'],
