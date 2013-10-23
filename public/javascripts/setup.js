@@ -3,10 +3,10 @@
  */
 
 require([
-	'core',
-	'connection/core',
-	'navigation/core',
-	'scene/core'
+	'app/core',
+	'app/connection/core',
+	'app/navigation/core',
+	'app/scene/core'
 ], function(App) {
 	App.start();
 });

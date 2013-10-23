@@ -4,7 +4,7 @@
  */
 
 define([
-	'core',
+	'app/core',
 	'./views/utility'
 ], function(App, Utility) {
 	var Navigation = App.module("Navigation");

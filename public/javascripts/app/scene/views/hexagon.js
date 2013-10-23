@@ -20,10 +20,11 @@ define(function() {
 			ctx.drawImage(this.el, data.x, data.y, data.width, data.height);
 
 			ctx.globalCompositeOperation = 'destination-in';
-			this.geometry.draw(ctx, false, '#000');
+			this.geometry.draw(ctx, '#092431', '#000');
 
-			ctx.globalCompositeOperation = 'source-over';
-			this.geometry.draw(ctx, "#082631");
+			ctx.globalCompositeOperation = 'lighten';
+
+			this.geometry.draw(ctx, "#205163");
 
 			ctx.restore();
 

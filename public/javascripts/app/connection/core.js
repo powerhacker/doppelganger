@@ -4,20 +4,12 @@
  */
 
 define([
-	'core',
-	'connection/controller'
+	'app/core',
+	'./controllers/webrtc'
 ], function(App, Controller) {
 	var Connection = App.module("Connection");
 
 	var controller = Connection.controller = new Controller();
-
-	controller.on("stream:added", function(stream) {
-		App.vent.trigger('connection:stream:added')
-	});
-
-	controller.on("stream:added", function(stream) {
-		App.vent.trigger('connection:stream:removed')
-	});
 
 	App.reqres.setHandler('connection:streams', function() {
 		return controller.collection;

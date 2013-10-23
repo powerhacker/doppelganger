@@ -4,9 +4,9 @@
  */
 
 define([
-	'hbars!../templates/utility',
-	'core'
-], function(template, App) {
+	'app/core',
+	'hbars!../templates/utility'
+], function(App, template) {
 	return Marionette.ItemView.extend({
 		template: template,
 

@@ -1,14 +1,14 @@
 /**
- * @name ConnectionController
+ * @name WebRTCController
  * @extends Marionette.Controller
  */
 
 define([
 	'vendor/simplewebrtc',
-	'./collections/streams'
+	'app/connection/collections/streams'
 ], function(SimpleWebRTC, Streams) {
 
-	var ConnectionController = Marionette.Controller.extend({
+	return Marionette.Controller.extend({
 
 		initialize: function() {
 			this.driver = new SimpleWebRTC({
@@ -22,12 +22,20 @@ define([
 			this.driver.on('videoAdded', this.addVideo.bind(this));
 			this.driver.on('videoRemoved', this.removeVideo.bind(this));
 
-			this.collection = new Streams();
+			var collection = this.collection = new Streams();
 
 			this.driver.connection.on('message', function(data) {
 				this.trigger("message", data);
 				this.trigger("message:" + data.type, data);
 			}.bind(this));
+
+			this.driver.on('speaking', function(data) {
+				data && collection.get(data.id).set('speaking', true);
+			});
+
+			this.driver.on('stoppedSpeaking', function(data) {
+				data && collection.get(data.id).set('speaking', false);
+			});
 		},
 
 		localVideo: function() {
@@ -58,6 +66,4 @@ define([
 			this.driver.webrtc.sendToAll(type, data);
 		}
 	});
-
-	return ConnectionController;
 });

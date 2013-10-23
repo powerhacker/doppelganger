@@ -4,7 +4,7 @@
  */
 
 define([
-	'core',
+	'app/core',
 	'./views/honeycomb'
 ], function(App, Honeycomb) {
 	var Scene = App.module("Scene");

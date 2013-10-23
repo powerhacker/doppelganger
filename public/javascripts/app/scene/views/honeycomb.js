@@ -4,9 +4,9 @@
  */
 
 define([
-	'hbars!../templates/honeycomb',
-	'./hexagon'
-], function(template, Hexagon) {
+	'./hexagon',
+	'hbars!../templates/honeycomb'
+], function(Hexagon, template) {
 
 	return Marionette.CompositeView.extend({
 		className: 'honeycomb',
@@ -20,7 +20,8 @@ define([
 		},
 
 		collectionEvents: {
-			add: 'videoLoop'
+			add: 'videoLoop',
+			remove: 'videoLoop'
 		},
 
 		initialize: function() {
@@ -50,6 +51,8 @@ define([
 			var overlay = this.getContext('foreground');
 			var swap = this.ui.foreground[0].cloneNode();
 
+			overlay.clearRect(0, 0, swap.width, swap.height);
+
 			this.children.each(function(hexagon) {
 				hexagon.render(swap);
 				overlay.drawImage(swap, 0, 0);
@@ -73,22 +76,32 @@ define([
 			}.bind(this));
 		},
 
+		drawGradientMap: function() {
+			var ctx = this.getContext('background');
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+			var gradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, width * 0.5);
+
+			gradient.addColorStop(0, 'rgba(0, 120, 150, 0.25)'); // light blue
+			gradient.addColorStop(1, 'rgba(0, 10, 10, 0.3)'); // dark blue
+
+			ctx.globalCompositeOperation = 'lighten';
+			ctx.fillStyle = gradient;
+			ctx.fillRect(0, 0, width, height)
+		},
+
 		drawTileMap: function() {
 			var width  = window.innerWidth * 1.2;
 			var height = window.innerHeight * 1.2
 
-			this.allLayers().each(function() {
-				$(this).attr({
-					height: height,
-					width: width
-				});
-			});
+			this.allLayers().attr({ height: height, width: width });
 
 			this.grid = new HT.Grid(width, height);
 			this.cache = this.grid.Cache();
 
 			this.getContext('background').drawImage(this.cache, 0, 0);
 
+			this.drawGradientMap();
 			this.videoLoop();
 		},
 
