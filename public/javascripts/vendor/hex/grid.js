@@ -118,6 +118,48 @@
 	};
 
 	/**
+	 * Returns a hex at a given point
+	 * @this {HT.Grid}
+	 * @return {HT.Hexagon}
+	 */
+	HT.Grid.prototype.getHexAtCenter = function(width, height) {
+		var selected = false;
+		var point = new HT.Point(width / 2, height / 2);
+
+		// Find the hex that contains this point
+		for (var h in this.Hexes) {
+			if (this.Hexes[h].Contains(point)) {
+				return this.Hexes[h];
+			}
+		}
+
+		return null;
+	};
+
+	HT.Grid.prototype.getNearestHexFromAngle = function(hex, angle) {
+		angle *= Math.PI / 180;
+
+		var height = HT.Hexagon.Static.HEIGHT;
+		var width = HT.Hexagon.Static.WIDTH;
+
+		var x = hex.x + Math.sin(angle) * width;
+		var y = hex.y + Math.cos(angle) * height;
+
+		return this.GetHexAt(new HT.Point(x, y));
+	};
+
+	HT.Grid.prototype.nearestHexFromCenter = function(width, height, angle) {
+		var center = this.getHexAtCenter(width, height);
+		var nearest;
+
+		if (angle !== false) {
+			nearest = this.getNearestHexFromAngle(center, angle);
+		}
+
+		return nearest || center;
+	};
+
+	/**
 	 * Returns a distance between two hexes
 	 * @this {HT.Grid}
 	 * @return {number}
@@ -161,6 +203,8 @@
 
 		for (var h in this.Hexes) this.Hexes[h].draw(ctx);
 		if (this.selected) this.selected.draw(ctx);
+
+		this.cache = canvas;
 
 		return canvas;
 

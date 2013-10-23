@@ -3,16 +3,20 @@
  * @extends Marionette.ItemView
  */
 
-define(['hbars!../templates/honeycomb'], function(template) {
+define([
+	'hbars!../templates/honeycomb',
+	'./hexagon'
+], function(template, Hexagon) {
 
-	return Marionette.ItemView.extend({
+	return Marionette.CompositeView.extend({
+		className: 'honeycomb',
+		itemView: Hexagon,
 		template: template,
 
 		ui: {
 			background   : '.background',
 			middleground : '.middleground',
-			foreground   : '.foreground',
-			overlay      : '.overlay',
+			foreground   : '.foreground'
 		},
 
 		collectionEvents: {
@@ -27,50 +31,45 @@ define(['hbars!../templates/honeycomb'], function(template) {
 			return this.$('.backdrop__layer');
 		},
 
-		draw: function(tiles, data) {
-			var overlay = this.getContext('overlay');
-			var swap = this.ui.overlay[0].cloneNode();
-			var ctx = swap.getContext('2d');
+		buildItemView: function(item, ItemViewType, itemViewOptions) {
+			var angle = this.children.length * 45;
+			var chosen = this.grid.nearestHexFromCenter(this.$el.width(), this.$el.height(), angle);
 
-			var width = HT.Hexagon.Static.WIDTH;
-			var height = HT.Hexagon.Static.HEIGHT;
+			var options = _.extend({
+				el: item.get('videoEl'),
+				geometry: chosen,
+				model: item
+			}, itemViewOptions);
 
-			for (var i = 0, len = data.length; i < len; i++) {
-				var hex = tiles[i];
-				var entry = data[i];
+			return new ItemViewType(options);
+		},
 
-				ctx.drawImage(entry.videoEl,
-					hex.x - entry.centerX, hex.y - entry.centerY,
-					entry.width, entry.height
-				);
+		appendHtml: function(){},
 
-				ctx.globalCompositeOperation = 'destination-in';
-				hex.draw(ctx, false, '#000');
+		draw: function() {
+			var overlay = this.getContext('foreground');
+			var swap = this.ui.foreground[0].cloneNode();
 
-				ctx.globalCompositeOperation = 'source-over';
-				hex.draw(ctx, "#082631");
-
+			this.children.each(function(hexagon) {
+				hexagon.render(swap);
 				overlay.drawImage(swap, 0, 0);
-			};
+			});
 		},
 
 		videoLoop: function () {
-			var sample = this.grid.Hexes.slice(10);
-			var data = this.collection.toJSON();
-
 			cancelAnimationFrame(this.frame);
 
 			var last = Date.now();
 
 			this.frame = requestAnimationFrame(function play() {
-				var isStale = Date.now() - last > (1000/30);
+				var isStale = Date.now() - last > 1000 / 30;
 
 				this.frame = requestAnimationFrame(play.bind(this))
 
-				if (data.length && isStale) {
-					last = Date.now();
-					this.draw(sample, data);
-				}
+				if (!isStale) return
+
+				last = Date.now();
+				this.draw();
 			}.bind(this));
 		},
 
