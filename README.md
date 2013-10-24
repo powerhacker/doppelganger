@@ -8,7 +8,7 @@ npm install -d
 npm start
 ```
 
-![](http://f.cl.ly/items/1w1b2h1M0P2o3i0y1o3n/Screen%20Shot%202013-07-24%20at%209.00.50%20AM.png)
+![screen shot 2013-10-24 at 9 57 49 am](https://f.cloud.github.com/assets/590904/1401676/4a9d0a94-3cda-11e3-82a6-1711a878760b.png)
 
 ## What is WebRTC?
 
