@@ -13,17 +13,23 @@ define(function() {
 			var ctx = canvas.getContext('2d');
 			var data = this.serializeData();
 
+			// Chrome doesn't like to draw images/videos with composite operaitons,
+			// so we'll need to first draw the video onto a copy
+			var swap = canvas.cloneNode();
+			var swap_ctx = copy.getContext('2d');
+
 			ctx.save();
 
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-			ctx.drawImage(this.el, data.x, data.y, data.width, data.height);
+			this.geometry.draw(ctx, false, '#000');
 
-			ctx.globalCompositeOperation = 'destination-in';
-			this.geometry.draw(ctx, '#092431', '#000');
+			swap_ctx.drawImage(this.el, data.x, data.y, data.width, data.height);
+
+			ctx.globalCompositeOperation = 'source-atop';
+			ctx.drawImage(swap, 0, 0);
 
 			ctx.globalCompositeOperation = 'lighten';
-
 			this.geometry.draw(ctx, "#205163");
 
 			ctx.restore();

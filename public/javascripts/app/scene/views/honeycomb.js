@@ -55,6 +55,7 @@ define([
 
 			this.children.each(function(hexagon) {
 				hexagon.render(swap);
+				overlay.globalCompositeOperation = 'source-over';
 				overlay.drawImage(swap, 0, 0);
 			});
 		},
