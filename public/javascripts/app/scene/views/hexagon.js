@@ -16,7 +16,7 @@ define(function() {
 			// Chrome doesn't like to draw images/videos with composite operaitons,
 			// so we'll need to first draw the video onto a copy
 			var swap = canvas.cloneNode();
-			var swap_ctx = copy.getContext('2d');
+			var swap_ctx = swap.getContext('2d');
 
 			ctx.save();
 
