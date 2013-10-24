@@ -80,7 +80,7 @@ define([
 			var ctx = this.getContext('background');
 			var width = window.innerWidth;
 			var height = window.innerHeight;
-			var gradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, width * 0.5);
+			var gradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, width * 0.45);
 
 			gradient.addColorStop(0, 'rgba(0, 120, 150, 0.25)'); // light blue
 			gradient.addColorStop(1, 'rgba(0, 10, 10, 0.3)'); // dark blue
