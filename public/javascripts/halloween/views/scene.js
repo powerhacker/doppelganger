@@ -11,6 +11,8 @@ define([
 		},
 
 		onDomRefresh: function() {
+			this.ui.scene.width(window.innerWidth + 200);
+			this.ui.scene.height(window.innerHeight);
 			this.ui.scene.parallax();
 			this.videoLoop();
 		},

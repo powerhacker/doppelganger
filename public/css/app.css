@@ -4,17 +4,6 @@
 
 @import "/icons/style.css";
 
-* {
-  -moz-box-sizing: border-box;
-  -webit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.flip {
-  transform: scaleY(-1) !important;
-  -webkit-transform: scaleY(-1) !important;
-}
-
 .visually-hidden { 
   position: absolute; 
   overflow: hidden; 
@@ -89,58 +78,6 @@ a.actionbar__logo {
   z-index: 0;
 }
 
-/**
- * @name UtilityBar
- * @desc Found at the bottom of the page, enables the user to
- * directly interact with the app
- */
-
-.utility-bar {
-  background: #2e3640;
-  border-top: 1px solid #111;
-  bottom: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  left: 0;
-  opacity: 0;
-  padding: 5px 5px 5px 25px;
-  position: absolute;
-  width: 100%;
-  z-index: 3;
-  -webkit-transition: 0.3s opacity;
-  transition: 0.3s opacity;
-}
-
-.utility-bar:hover, .utility-bar:focus {
-  opacity: 1;
-}
-
-.utility-bar:before {
-  content: "☺";
-  color: #d9d9d9;
-  font-size: 16px;
-  font-weight: 100;
-  left: 7px;
-  position: absolute;
-  top: 11px;
-}
-
-.utility-bar-message {
-  background: #24282d;
-  border: 1px solid #16191c;
-  border-radius: 4px;
-  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.15);
-  color: #d9d9d9;
-  padding: 5px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  transition: 0.2s all;
-  -webkit-transition: 0.2s all;
-  width: 100%; 
-}
-
-.error .utility-bar-message {
-  background: #922;
-}
-
 .region--backdrop {
   height: 100%;
   overflow: hidden;
@@ -161,45 +98,71 @@ a.actionbar__logo {
 }
 
 .scene {
-  position: absolute;
-  top: 0;
-  left: 0;
+  overflow: hidden;
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 -120px;
   padding: 0;
 }
 
 .layer {
-  left: 0;
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  width: 100%;
 }
 
-.mask {
+img {
+  width: 100%;
+}
+
+img.mask {
   position: absolute;
   left: -99999px;
+  width: auto;
 }
 
 .ghoul__canvas {
-  bottom: 190px;
-  left: 1023px;
+  bottom: 30%;
+  left: 47%;
   overflow: hidden;
   position: absolute;
   -webkit-filter: brightness(1.5) contrast(1.5) sepia(0.3);
 }
 
 .moon__canvas {
-  bottom: 730px;
-  left: 844px;
+  top: 8%;
+  left: 68%;
   overflow: hidden;
   position: absolute;
   -webkit-filter: brightness(1.5) contrast(1.5) sepia(0.3) saturate(2);
 }
 
 .pumpkin__canvas {
-  bottom: 30px;
-  left: 335px;
+  top: 66%;
+  left: 71%;
   overflow: hidden;
   position: absolute;
   -webkit-filter: brightness(1.5) contrast(1.5) sepia(0.3) saturate(2);
+}
+
+@-webkit-keyframes swipe {
+  0% {
+	-webkit-transform: translate3d(30%, 0, 0);
+	opacity: 0;
+  }
+
+  50% {
+	-webkit-transform: translate3d(5%, 0, 0);
+	opacity: 1;
+  }
+
+  100% {
+	-webkit-transform: translate3d(30%, 0, 0);
+	opacity: 0;
+  }
+
+}
+
+
+.swipe-left {
+  display: block;
+  -webkit-animation: swipe 30s infinite;
 }
