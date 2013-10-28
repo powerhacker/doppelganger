@@ -14,7 +14,7 @@ app.get '/', (req, res) ->
     res.render 'index', development: isDevelopment
 
 app.get '/:room', (req, res) ->
-    res.render 'index', development: isDevelopment
+    res.render 'room', development: isDevelopment
 
 server = app.listen app.get('port'), ->
     console.log("Listening on port " + "%d".bold.red +
