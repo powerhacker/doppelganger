@@ -3,16 +3,25 @@
  * @desc The brain of the application
  */
 
-define(function() {
+define(['app/router'], function(Router) {
+
 	var Application = new Marionette.Application();
 
-	Application.on('initialize:after', function() {
-		Backbone.history.start();
+	Application.addInitializer(function() {
+		Application.router = new Router();
 	});
 
 	Application.addRegions({
 		body       : "#region--body",
+		modal      : "#region--modal",
 		navigation : "#region--navigation"
+	});
+
+	Application.on('start', function() {
+		Backbone.history.start({
+			hashChange: false,
+			pushState: true
+		});
 	});
 
 	return Application;

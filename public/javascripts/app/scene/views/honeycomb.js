@@ -20,8 +20,7 @@ define([
 		},
 
 		collectionEvents: {
-			add: 'videoLoop',
-			remove: 'videoLoop'
+			'add remove reset' : 'videoLoop'
 		},
 
 		initialize: function() {

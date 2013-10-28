@@ -3,10 +3,18 @@
 #
 
 require 'colors'
-express = require('express')
+
+fs = require 'fs'
+https = require 'https'
+http = require 'http'
+express = require 'express'
+options =
+    cert : fs.readFileSync '/Users/nathanielhunzaker/.ssl/server.crt'
+    key  : fs.readFileSync '/Users/nathanielhunzaker/.ssl/server.key'
+
 app = express()
 
-isDevelopment = not (process.env.NODEENV is 'production');
+isDevelopment = app.settings.env isnt 'production'
 
 require('./settings')(app);
 
@@ -16,6 +24,13 @@ app.get '/', (req, res) ->
 app.get '/:room', (req, res) ->
     res.render 'room', development: isDevelopment
 
-server = app.listen app.get('port'), ->
-    console.log("Listening on port " + "%d".bold.red +
-                " in " + "%s".bold.green, app.get('port'), app.settings.env);
+base = http.createServer(app)
+ssl = https.createServer(options, app)
+
+base.listen app.get('port'), ->
+    console.log("HTTP listening on port " + "%d".bold.red +
+        " in " + "%s".bold.green, app.get('port'), app.settings.env);
+
+ssl.listen app.get('port') + 1, ->
+    console.log("HTTPS listening on port " + "%d".bold.red +
+        " in " + "%s".bold.green, app.get('port') + 1, app.settings.env);

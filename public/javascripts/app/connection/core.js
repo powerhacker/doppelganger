@@ -7,9 +7,21 @@ define([
 	'app/core',
 	'./controllers/webrtc'
 ], function(App, Controller) {
-	var Connection = App.module("Connection");
 
-	var controller = Connection.controller = new Controller();
+	var Connection = App.module("Connection", function() {
+		this.controller = new Controller();
+		this.startWithParent = false;
+	});
+
+	var controller = Connection.controller;
+
+	Connection.on('start', function() {
+		controller.connect();
+	});
+
+	Connection.on('stop', function() {
+		controller.disconnect();
+	});
 
 	App.reqres.setHandler('connection:streams', function() {
 		return controller.collection;

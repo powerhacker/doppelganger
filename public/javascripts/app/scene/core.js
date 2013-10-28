@@ -7,9 +7,10 @@ define([
 	'app/core',
 	'./views/honeycomb'
 ], function(App, Honeycomb) {
+
 	var Scene = App.module("Scene");
 
-	Scene.addInitializer(function() {
+	Scene.on('start', function() {
 		App.body.show(new Honeycomb({
 			collection: App.request('connection:streams')
 		}));

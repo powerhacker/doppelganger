@@ -11,8 +11,9 @@ define([
 		template: template,
 
 		events: {
-			'click 	.actionbar__nav__control--mute': 'toggleMute',
-			'click 	.actionbar__nav__control--pause': 'togglePause'
+			'click .actionbar__nav__control--mute': 'toggleMute',
+			'click .actionbar__nav__control--pause': 'togglePause',
+			'click .actionbar__logo' : 'visitLobby'
 		},
 
 		ui: {
@@ -31,6 +32,11 @@ define([
 			var isActive = this.ui.pause.toggleClass('is-active').hasClass('is-active');
 			var action = isActive? 'pause' : 'resume';
 			App.execute('connection:' + action);
+		},
+
+		visitLobby: function(e) {
+			App.router.navigate('', { trigger: true });
+			e.preventDefault();
 		}
 	});
 });

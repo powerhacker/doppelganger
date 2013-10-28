@@ -14,7 +14,7 @@ define([
 			var collection = this.collection = new Streams();
 
 			this.driver = new SimpleWebRTC({
-				autoRequestMedia: true,
+				autoRequestMedia: false,
 				autoRemoveVideos: false,
 				localVideoEl: document.createElement('div'),
 				remoteVideosEl: document.createElement('div')
@@ -36,6 +36,16 @@ define([
 			this.driver.on('stoppedSpeaking', function(data) {
 				data && collection.get(data.id).set('speaking', false);
 			});
+		},
+
+		connect: function() {
+			this.driver.startLocalVideo();
+		},
+
+		disconnect: function() {
+			this.driver.leaveRoom();
+			this.driver.stopLocalVideo();
+			this.collection.reset();
 		},
 
 		localVideo: function() {

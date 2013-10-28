@@ -26,6 +26,10 @@ body {
   margin: -1px; padding: 0; border: 0; 
 }
 
+.physically-hidden {
+  display: none;
+}
+
 .actionbar {
   background: rgba(0, 0, 0, 0.5);
   left: 0;
@@ -106,4 +110,62 @@ a.actionbar__logo {
   position: absolute;
   top: 0;
   width: 100%;
+}
+
+.modal {
+  background: #c7ccce;
+  left: 50%;
+  margin: 0 0 0 -180px;
+  position: absolute;
+  top: 25%;
+  width: 360px;
+  z-index: 3;
+}
+
+label {
+  color: #353c43;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 0.5em;
+}
+
+.field {
+  margin: 0 0 1em;
+}
+
+.menu {
+  padding: 2em 2em 1.5em;
+}
+
+.menu__header {
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+.input--text {
+  background: #dddedf;
+  border: none;
+  display: block;
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 2%;
+  width: 100%;
+}
+
+.btn {
+  background: #3b4c53;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  line-height: 50px;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.form__footer {
+  margin-top: 2em;
 }
