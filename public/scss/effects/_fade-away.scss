@@ -1,0 +1,5 @@
+.effect__fade-away {
+	opacity: 0;
+	@include transition(0.5s all);
+	@include transform(translate(0, -5%));
+}

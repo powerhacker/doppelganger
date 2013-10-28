@@ -1,0 +1,47 @@
+label {
+	color: #353c43;
+	display: block;
+	font-size: 12px;
+	margin-bottom: 0.5em;
+}
+
+.field {
+	margin: 0 0 1em;
+}
+
+.menu {
+	padding: 2em 2em 1.5em;
+}
+
+.menu__header {
+	margin-bottom: 3em;
+	text-align: center;
+}
+
+.input--text {
+	background: #dddedf;
+	border: none;
+	display: block;
+	font-size: 16px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 2%;
+	width: 100%;
+}
+
+.btn {
+	background: #3b4c53;
+	border-radius: 4px;
+	border: none;
+	color: #fff;
+	font-size: 16px;
+	line-height: 50px;
+}
+
+.btn--full {
+	width: 100%;
+}
+
+.form__footer {
+	margin-top: 2em;
+}

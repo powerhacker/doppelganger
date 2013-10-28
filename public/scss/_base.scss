@@ -1,0 +1,11 @@
+* {
+	@include box-sizing(border-box);
+}
+
+body {
+	background: #091f27;
+	font: 18px/1 Helvetica, sans-serif;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}

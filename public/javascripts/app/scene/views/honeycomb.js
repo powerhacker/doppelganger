@@ -16,7 +16,8 @@ define([
 		ui: {
 			background   : '.background',
 			middleground : '.middleground',
-			foreground   : '.foreground'
+			foreground   : '.foreground',
+			layers       : '.honeycomb__layer'
 		},
 
 		collectionEvents: {
@@ -25,10 +26,6 @@ define([
 
 		initialize: function() {
 			$(window).on('resize', this.drawTileMap.bind(this));
-		},
-
-		allLayers: function() {
-			return this.$('.backdrop__layer');
 		},
 
 		buildItemView: function(item, ItemViewType, itemViewOptions) {
@@ -92,9 +89,9 @@ define([
 
 		drawTileMap: function() {
 			var width  = window.innerWidth * 1.2;
-			var height = window.innerHeight * 1.2
+			var height = window.innerHeight * 1.2;
 
-			this.allLayers().attr({ height: height, width: width });
+			this.ui.layers.attr({ height: height, width: width });
 
 			this.grid = new HT.Grid(width, height);
 			this.cache = this.grid.Cache();
@@ -106,7 +103,7 @@ define([
 		},
 
 		getContext: _.memoize(function(type) {
-			return this.$('.backdrop__layer.' + type)[0].getContext('2d');
+			return this.ui.layers.filter('.' + type)[0].getContext('2d');
 		}),
 
 		onDomRefresh: function() {
