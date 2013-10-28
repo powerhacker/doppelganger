@@ -169,3 +169,9 @@ label {
 .form__footer {
   margin-top: 2em;
 }
+
+.effect__fade-away {
+  opacity: 0;
+  transition: 0.5s all;
+  transform: translate(0, -5%);
+}

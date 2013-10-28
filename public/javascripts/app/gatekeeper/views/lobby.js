@@ -24,6 +24,11 @@ define([
 			var room = this.ui.form[0]['room_name'].value;
 			App.router.navigate(room, { trigger: true });
 			e.preventDefault();
+		},
+
+		close: function() {
+			this.$el.addClass('effect__fade-away');
+			_.delay(Marionette.ItemView.prototype.close.bind(this), 500);
 		}
 	});
 });
