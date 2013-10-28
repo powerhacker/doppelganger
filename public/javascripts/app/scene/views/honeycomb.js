@@ -38,6 +38,7 @@ define([
 
 			var options = _.extend({
 				el: item.get('videoEl'),
+				canvas: this.ui.foreground[0].cloneNode(),
 				geometry: chosen,
 				model: item
 			}, itemViewOptions);
@@ -48,15 +49,12 @@ define([
 		appendHtml: function(){},
 
 		draw: function() {
-			var overlay = this.getContext('foreground');
-			var swap = this.ui.foreground[0].cloneNode();
+			var foreground = this.getContext('foreground');
 
-			overlay.clearRect(0, 0, swap.width, swap.height);
+			this.ui.foreground[0].width = this.ui.foreground[0].width;
 
-			this.children.each(function(hexagon) {
-				hexagon.render(swap);
-				overlay.globalCompositeOperation = 'source-over';
-				overlay.drawImage(swap, 0, 0);
+			this.children.each(function(hex) {
+				foreground.drawImage(hex.render().canvas, 0, 0);
 			});
 		},
 
@@ -66,14 +64,16 @@ define([
 			var last = Date.now();
 
 			this.frame = requestAnimationFrame(function play() {
-				var isStale = Date.now() - last > 1000 / 30;
+				var isStale = Date.now() - last > 1000 / 24;
 
-				this.frame = requestAnimationFrame(play.bind(this))
+				this.frame = requestAnimationFrame(play.bind(this));
 
-				if (!isStale) return
+				if (!isStale) return;
 
 				last = Date.now();
+
 				this.draw();
+
 			}.bind(this));
 		},
 
@@ -106,13 +106,13 @@ define([
 			this.videoLoop();
 		},
 
-		getContext: function(type) {
+		getContext: _.memoize(function(type) {
 			return this.$('.backdrop__layer.' + type)[0].getContext('2d');
-		},
+		}),
 
 		onDomRefresh: function() {
 			this.drawTileMap();
-		},
+		}
 
 	});
 

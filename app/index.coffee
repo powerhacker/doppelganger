@@ -11,7 +11,7 @@ isDevelopment = not (process.env.NODEENV is 'production');
 require('./settings')(app);
 
 app.get '/', (req, res) ->
-    res.end "Please join a room!"
+    res.render 'index', development: isDevelopment
 
 app.get '/:room', (req, res) ->
     res.render 'index', development: isDevelopment

@@ -141,9 +141,10 @@
 
 		var height = HT.Hexagon.Static.HEIGHT;
 		var width = HT.Hexagon.Static.WIDTH;
+		var center = hex.MidPoint;
 
-		var x = hex.x + Math.sin(angle) * width;
-		var y = hex.y + Math.cos(angle) * height;
+		var x = center.X + Math.sin(angle) * width;
+		var y = center.Y + Math.cos(angle) * height;
 
 		return this.GetHexAt(new HT.Point(x, y));
 	};

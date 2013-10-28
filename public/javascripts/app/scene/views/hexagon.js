@@ -5,34 +5,64 @@ define(function() {
 
 		initialize: function(options) {
 			this.geometry = options.geometry;
+
+			this.canvas = options.canvas;
+			this.canvas_ctx = this.canvas.getContext('2d');
+
+			this.swap = this.canvas.cloneNode();
+			this.swap_ctx = this.swap.getContext('2d');
 		},
 
-		render: function(canvas) {
-			if (!canvas) return;
+		clone: function() {
+			return this.canvas.cloneNode();
+		},
 
-			var ctx = canvas.getContext('2d');
+		isPlaying: function() {
+			return !this.el.paused;
+		},
+
+		erase: function() {
+			this.canvas_ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		},
+
+		updateVideo: function(x, y, width, height) {
+			this.swap_ctx.drawImage(this.el, x, y, width, height);
+		},
+
+		getStrokeMask: _.memoize(function() {
+			var mask = this.clone();
+			this.geometry.draw(mask.getContext('2d'), "#205163");
+			return mask;
+		}, function() { return this.geometry.Id; }),
+
+		getFillMask: _.memoize(function() {
+			var mask = this.clone();
+			this.geometry.draw(mask.getContext('2d'), false, '#000');
+			return mask;
+		}, function() { return this.geometry.Id; }),
+
+		applyMask: function() {
+			this.canvas_ctx.drawImage(this.getFillMask(), 0, 0);
+		},
+
+		applyVideo: function() {
+			this.canvas_ctx.globalCompositeOperation = 'source-atop';
+			this.canvas_ctx.drawImage(this.swap, 0, 0);
+		},
+
+		applyHighlights: function() {
+			this.canvas_ctx.globalCompositeOperation = 'lighten';
+			this.canvas_ctx.drawImage(this.getStrokeMask(), 0, 0);
+		},
+
+		render: function() {
 			var data = this.serializeData();
 
-			// Chrome doesn't like to draw images/videos with composite operaitons,
-			// so we'll need to first draw the video onto a copy
-			var swap = canvas.cloneNode();
-			var swap_ctx = swap.getContext('2d');
+			this.updateVideo(data.x, data.y, data.width, data.height);
 
-			ctx.save();
-
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-			this.geometry.draw(ctx, false, '#000');
-
-			swap_ctx.drawImage(this.el, data.x, data.y, data.width, data.height);
-
-			ctx.globalCompositeOperation = 'source-atop';
-			ctx.drawImage(swap, 0, 0);
-
-			ctx.globalCompositeOperation = 'lighten';
-			this.geometry.draw(ctx, "#205163");
-
-			ctx.restore();
+			this.applyMask();
+			this.applyVideo();
+			this.applyHighlights();
 
 			return this;
 		},

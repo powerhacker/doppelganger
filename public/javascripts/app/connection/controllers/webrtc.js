@@ -11,6 +11,8 @@ define([
 	return Marionette.Controller.extend({
 
 		initialize: function() {
+			var collection = this.collection = new Streams();
+
 			this.driver = new SimpleWebRTC({
 				autoRequestMedia: true,
 				autoRemoveVideos: false,
@@ -21,8 +23,6 @@ define([
 			this.driver.on('readyToCall', this.boot.bind(this));
 			this.driver.on('videoAdded', this.addVideo.bind(this));
 			this.driver.on('videoRemoved', this.removeVideo.bind(this));
-
-			var collection = this.collection = new Streams();
 
 			this.driver.connection.on('message', function(data) {
 				this.trigger("message", data);
